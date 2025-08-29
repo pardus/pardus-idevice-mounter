@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.40.0 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkListBoxRow" id="device_row_template">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkBox">
+        <property name="can-focus">False</property>
+        <property name="margin-left">8</property>
+        <property name="margin-right">8</property>
+        <property name="margin-top">6</property>
+        <property name="margin-bottom">6</property>
+        <property name="spacing">8</property>
+        <child>
+          <object class="GtkBox">
+            <property name="can-focus">False</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">2</property>
+            <child>
+              <object class="GtkImage" id="row_icon">
+                <property name="can-focus">False</property>
+                <property name="pixel-size">24</property>
+                <property name="icon-name">phone-apple-iphone-symbolic</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="row_dot">
+                <property name="can-focus">False</property>
+                <property name="label">●</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="can-focus">False</property>
+            <property name="hexpand">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">2</property>
+            <child>
+              <object class="GtkLabel" id="row_title">
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Device Name</property>
+                <property name="xalign">0</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                  <attribute name="scale" value="1.1000000000000001"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="row_details">
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">128GB free · iOS 17.2</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="row_status">
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Trusted · UDID: xxxx…</property>
+                <property name="xalign">0</property>
+                <attributes>
+                  <attribute name="style" value="italic"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="can-focus">False</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkButton" id="row_primary">
+                <property name="label" translatable="yes">Mount</property>
+                <property name="can-focus">False</property>
+                <property name="receives-default">False</property>
+                <signal name="clicked" handler="on_row_primary_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="row_details_btn">
+                <property name="label" translatable="yes">Details</property>
+                <property name="can-focus">False</property>
+                <property name="receives-default">False</property>
+                <signal name="clicked" handler="on_row_details_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="main_window">
+    <property name="can-focus">False</property>
+    <property name="title" translatable="yes">Pardus iDevice Mounter</property>
+    <property name="default-width">600</property>
+    <property name="default-height">420</property>
+    <property name="icon-name">smartphone-symbolic</property>
+    <child>
+      <object class="GtkBox" id="main_box">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="margin-left">12</property>
+        <property name="margin-right">12</property>
+        <property name="margin-top">12</property>
+        <property name="margin-bottom">12</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkRevealer" id="banner_revealer">
+            <property name="can-focus">False</property>
+            <child>
+              <object class="GtkInfoBar" id="banner_infobar">
+                <property name="can-focus">False</property>
+                <child internal-child="action_area">
+                  <object class="GtkButtonBox" id="banner_action_area">
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkButton" id="banner_close_button">
+                        <property name="label" translatable="yes">✕</property>
+                        <property name="can-focus">False</property>
+                        <property name="receives-default">False</property>
+                        <signal name="clicked" handler="on_banner_close" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child internal-child="content_area">
+                  <object class="GtkBox">
+                    <property name="can-focus">False</property>
+                    <property name="spacing">8</property>
+                    <child>
+                      <object class="GtkLabel" id="banner_label">
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Ready.</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFrame" id="devices_frame">
+            <property name="can-focus">False</property>
+            <property name="label-xalign">0</property>
+            <property name="shadow-type">in</property>
+            <child>
+              <object class="GtkBox">
+                <property name="can-focus">False</property>
+                <property name="margin-left">6</property>
+                <property name="margin-right">6</property>
+                <property name="margin-top">6</property>
+                <property name="margin-bottom">6</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkScrolledWindow" id="scrolled_window">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="hscrollbar-policy">never</property>
+                    <property name="shadow-type">in</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkInfoBar" id="tip_infobar">
+                    <property name="can-focus">False</property>
+                    <property name="message-type">other</property>
+                    <child internal-child="action_area">
+                      <object class="GtkButtonBox">
+                        <property name="can-focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child internal-child="content_area">
+                      <object class="GtkBox">
+                        <property name="can-focus">False</property>
+                        <property name="spacing">8</property>
+                        <child>
+                          <object class="GtkLabel" id="tip_label">
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">After connecting, confirm “Trust” on your device.</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+            <child type="label">
+              <object class="GtkLabel">
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Connected Devices</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkStack" id="status_stack">
+            <property name="can-focus">False</property>
+            <property name="transition-type">crossfade</property>
+            <child>
+              <object class="GtkBox" id="page_empty">
+                <property name="name">empty</property>
+                <property name="can-focus">False</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">8</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">False</property>
+                    <property name="label">!</property>
+                    <attributes>
+                      <attribute name="scale" value="1.8"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">No device detected</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                      <attribute name="scale" value="1.2"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Connect your iPhone/iPad via USB and confirm “Trust”.</property>
+                    <property name="xalign">0.5</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="scan_button">
+                    <property name="label" translatable="yes">Scan Devices</property>
+                    <property name="can-focus">False</property>
+                    <property name="receives-default">False</property>
+                    <signal name="clicked" handler="on_refresh_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="name">empty</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="page_loading">
+                <property name="name">loading</property>
+                <property name="can-focus">False</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">8</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="can-focus">False</property>
+                    <property name="spacing">8</property>
+                    <child>
+                      <object class="GtkSpinner" id="spinner_loading">
+                        <property name="can-focus">False</property>
+                        <property name="active">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_loading">
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Connecting…</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkProgressBar" id="progress_loading">
+                    <property name="can-focus">False</property>
+                    <property name="text">0%</property>
+                    <property name="show-text">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Waiting for “Trust” confirmation…</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="name">loading</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="page_success">
+                <property name="name">success</property>
+                <property name="can-focus">False</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">8</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Device mounted successfully</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                      <attribute name="scale" value="1.2"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">File manager opened</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="can-focus">False</property>
+                    <property name="spacing">8</property>
+                    <child>
+                      <object class="GtkButton" id="reopen_button">
+                        <property name="label" translatable="yes">Open Again</property>
+                        <property name="can-focus">False</property>
+                        <property name="receives-default">False</property>
+                        <signal name="clicked" handler="on_reopen_clicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="unmount_button_success">
+                        <property name="label" translatable="yes">Unmount</property>
+                        <property name="can-focus">False</property>
+                        <property name="receives-default">False</property>
+                        <signal name="clicked" handler="on_unmount_clicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="name">success</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="page_error">
+                <property name="name">error</property>
+                <property name="can-focus">False</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">8</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Connection error</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                      <attribute name="scale" value="1.2"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Confirm “Trust” on the device • Check the USB cable</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="retry_button">
+                    <property name="label" translatable="yes">Try Again</property>
+                    <property name="can-focus">False</property>
+                    <property name="receives-default">False</property>
+                    <signal name="clicked" handler="on_retry_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="name">error</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="button_box">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="halign">center</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkButton" id="mount_button">
+                <property name="label" translatable="yes">Mount</property>
+                <property name="sensitive">False</property>
+                <property name="can-focus">False</property>
+                <property name="receives-default">False</property>
+                <signal name="clicked" handler="on_mount_clicked" swapped="no"/>
+                <style>
+                  <class name="suggested-action"/>
+                </style>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="unmount_button">
+                <property name="label" translatable="yes">Unmount</property>
+                <property name="sensitive">False</property>
+                <property name="can-focus">False</property>
+                <property name="receives-default">False</property>
+                <signal name="clicked" handler="on_unmount_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkStatusbar" id="statusbar">
+            <property name="can-focus">False</property>
+            <property name="margin-top">6</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <child type="titlebar">
+      <object class="GtkHeaderBar" id="header_bar">
+        <property name="can-focus">False</property>
+        <property name="title" translatable="yes">Pardus iDevice Mounter</property>
+        <property name="show-close-button">True</property>
+        <child type="end">
+          <object class="GtkButton" id="refresh_button">
+            <property name="can-focus">False</property>
+            <property name="receives-default">False</property>
+            <property name="tooltip-text" translatable="yes">Refresh devices</property>
+            <signal name="clicked" handler="on_refresh_clicked" swapped="no"/>
+            <child>
+              <object class="GtkImage">
+                <property name="can-focus">False</property>
+                <property name="icon-name">view-refresh-symbolic</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
