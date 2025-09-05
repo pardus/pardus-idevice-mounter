@@ -2,6 +2,47 @@
 <!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
+  <object class="GtkAboutDialog" id="device_dialog">
+    <property name="can-focus">False</property>
+    <property name="window-position">center-on-parent</property>
+    <property name="type-hint">dialog</property>
+    <property name="program-name">Pardus iDevice Mounter</property>
+    <property name="version">0.1.0</property>
+    <property name="copyright" translatable="yes">© TÜBİTAK BİLGEM</property>
+    <property name="comments" translatable="yes">Browse iPhone or iPad's files on your Linux system</property>
+    <property name="website">https://github.com/pardus/pardus-idevice-mounter</property>
+    <property name="authors">Emel Öztürk</property>
+    <property name="translator-credits" translatable="yes">Emel Öztürk</property>
+    <property name="logo-icon-name">xapp-user-favorites</property>
+    <property name="license-type">gpl-3-0</property>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="can-focus">False</property>
+            <property name="layout-style">end</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+    </child>
+  </object>
   <object class="GtkListBoxRow" id="device_row_template">
     <property name="can-focus">False</property>
     <child>
@@ -145,9 +186,9 @@
   </object>
   <object class="GtkWindow" id="main_window">
     <property name="can-focus">False</property>
-    <property name="title" translatable="yes">Pardus iDevice Mounter</property>
+    <property name="role">header_bar</property>
     <property name="default-width">600</property>
-    <property name="default-height">420</property>
+    <property name="default-height">400</property>
     <property name="icon-name">smartphone-symbolic</property>
     <child>
       <object class="GtkBox" id="main_box">
@@ -236,6 +277,7 @@
                 <property name="spacing">6</property>
                 <child>
                   <object class="GtkScrolledWindow" id="scrolled_window">
+                    <property name="height-request">250</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="hscrollbar-policy">never</property>
@@ -646,15 +688,32 @@
     </child>
     <child type="titlebar">
       <object class="GtkHeaderBar" id="header_bar">
+        <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="title" translatable="yes">Pardus iDevice Mounter</property>
         <property name="show-close-button">True</property>
-        <child type="end">
+        <child>
+          <object class="GtkMenuButton" id="menu_button">
+            <property name="visible">True</property>
+            <property name="sensitive">False</property>
+            <property name="can-focus">True</property>
+            <property name="focus-on-click">False</property>
+            <property name="receives-default">True</property>
+            <property name="popover">menu_popover</property>
+            <child>
+              <object class="GtkImage" id="menu_img">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="icon-name">open-menu-symbolic</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
           <object class="GtkButton" id="refresh_button">
-            <property name="can-focus">False</property>
+            <property name="can-focus">True</property>
             <property name="receives-default">False</property>
             <property name="tooltip-text" translatable="yes">Refresh devices</property>
-            <signal name="clicked" handler="on_refresh_clicked" swapped="no"/>
             <child>
               <object class="GtkImage">
                 <property name="can-focus">False</property>
@@ -662,6 +721,63 @@
               </object>
             </child>
           </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopover" id="menu_popover">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkButton" id="menu_about">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="relief">none</property>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="spacing">5</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="icon-name">dialog-information-symbolic</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">About</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
         </child>
       </object>
     </child>
