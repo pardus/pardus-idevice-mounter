@@ -9,6 +9,7 @@ from gi.repository import Gtk, GLib
 
 class MainWindow(Gtk.Window):
     def __init__(self, application):
+        """Initializes the main window."""
         super().__init__(application=application)
         self.builder = Gtk.Builder()
         glade_file = os.path.join(
@@ -28,8 +29,10 @@ class MainWindow(Gtk.Window):
         if status_stack:
             status_stack.set_visible_child_name("empty")
 
-
     def init_widgets(self):
+        """
+        Initializes widgets from the glade file.
+        """
         glade_window = self.builder.get_object("main_window")
         if glade_window:
             child = glade_window.get_child()
@@ -62,8 +65,10 @@ class MainWindow(Gtk.Window):
 
         self.show_all()
 
-
     def init_signals(self):
+        """
+        Initializes signals for the widgets.
+        """
         self.builder.connect_signals({
             "on_refresh_button_clicked": self.on_refresh_button_clicked,
             "on_scan_button_clicked": self.on_scan_button_clicked,
@@ -77,8 +82,10 @@ class MainWindow(Gtk.Window):
             "on_banner_close_button_clicked": self.on_banner_close_button_clicked
         })
 
-
     def set_version(self):
+        """
+        Sets the application version from the __version__ file.
+        """
         try:
             version_file = os.path.join(
                 os.path.dirname(os.path.abspath(__file__)), "__version__"
@@ -88,10 +95,13 @@ class MainWindow(Gtk.Window):
                 device_dialog = self.builder.get_object("device_dialog")
                 if device_dialog:
                     device_dialog.set_version(version)
-        except Exception:
+        except FileNotFoundError:
             pass
 
     def on_refresh_button_clicked(self, widget):
+        """
+        Handles the refresh button click event.
+        """
         print("Refresh clicked")
         status_stack = self.builder.get_object("status_stack")
         if status_stack:
@@ -99,36 +109,66 @@ class MainWindow(Gtk.Window):
             GLib.timeout_add_seconds(3, self._back_to_empty)
 
     def on_mount_button_clicked(self, widget):
+        """
+        Handles the mount button click event.
+        """
         print("Mount clicked")
 
     def on_unmount_button_clicked(self, widget):
+        """
+        Handles the unmount button click event.
+        """
         print("Unmount clicked")
 
     def on_row_primary_button_clicked(self, widget):
+        """
+        Handles the row primary button click event.
+        """
         print("Row primary clicked")
 
     def on_row_details_button_clicked(self, widget):
+        """
+        Handles the row details button click event.
+        """
         print("Row details clicked")
 
     def on_retry_button_clicked(self, widget):
+        """
+        Handles the retry button click event.
+        """
         print("Retry clicked")
 
     def on_reopen_button_clicked(self, widget):
+        """
+        Handles the reopen button click event.
+        """
         print("Reopen clicked")
 
     def on_banner_close_button_clicked(self, widget):
+        """
+        Handles the banner close button click event.
+        """
         print("Banner close clicked")
         banner_revealer = self.builder.get_object("banner_revealer")
         if banner_revealer:
             banner_revealer.set_reveal_child(False)
 
     def on_scan_button_clicked(self, widget):
+        """Handles the scan button click event."""
         print("Scan clicked")
 
     def on_menu_about_button_clicked(self, widget):
-        print("Menu about clicked")
+        """
+        Shows about & credits parts of the device dialog.
+        """
+        self.menu_popover.popdown()
+        self.device_dialog.run()
+        self.device_dialog.hide()
 
     def _back_to_empty(self):
+        """
+        Sets the status stack to the empty view.
+        """
         status_stack = self.builder.get_object("status_stack")
         if status_stack:
             status_stack.set_visible_child_name("empty")
