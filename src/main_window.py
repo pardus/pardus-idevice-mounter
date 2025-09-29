@@ -5,6 +5,12 @@ import os
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GLib
+from device_manager import DeviceManager
+# Import logging system
+from logger_config import get_logger
+
+# Get logger for this module
+logger = get_logger('main_window')
 
 
 class MainWindow(Gtk.Window):
@@ -13,13 +19,16 @@ class MainWindow(Gtk.Window):
         super().__init__(application=application)
         self.builder = Gtk.Builder()
         glade_file = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), "../ui/main_window.glade"
+            os.path.dirname(os.path.abspath(__file__)),
+            "../ui/main_window.glade"
         )
         try:
             self.builder.add_from_file(glade_file)
         except (FileNotFoundError, GLib.Error) as e:
-            print(f"Error loading glade file: {e}")
+            logger.error(f"Error loading glade file: {e}")
             return
+
+        self.device_manager = DeviceManager()
 
         self.init_widgets()
         self.init_signals()
@@ -54,7 +63,6 @@ class MainWindow(Gtk.Window):
         self.set_default_size(600, 400)
 
         if glade_window:
-            print(glade_window.get_icon_name())
             self.set_icon_name(glade_window.get_icon_name())
 
         self.menu_popover = self.builder.get_object("menu_popover")
@@ -102,60 +110,69 @@ class MainWindow(Gtk.Window):
         """
         Handles the refresh button click event.
         """
-        print("Refresh clicked")
         status_stack = self.builder.get_object("status_stack")
         if status_stack:
             status_stack.set_visible_child_name("loading")
-            GLib.timeout_add_seconds(3, self._back_to_empty)
+
+        GLib.idle_add(self._scan_devices_idle)
 
     def on_mount_button_clicked(self, widget):
         """
         Handles the mount button click event.
         """
-        print("Mount clicked")
+        logger.info("Mount button clicked")
 
     def on_unmount_button_clicked(self, widget):
         """
         Handles the unmount button click event.
         """
-        print("Unmount clicked")
+        logger.info("Unmount button clicked")
 
     def on_row_primary_button_clicked(self, widget):
         """
         Handles the row primary button click event.
         """
-        print("Row primary clicked")
+        logger.info("Row primary button clicked")
 
     def on_row_details_button_clicked(self, widget):
         """
         Handles the row details button click event.
         """
-        print("Row details clicked")
+        logger.info("Row details button clicked")
 
     def on_retry_button_clicked(self, widget):
         """
         Handles the retry button click event.
         """
-        print("Retry clicked")
+        logger.info("Retry button clicked")
 
     def on_reopen_button_clicked(self, widget):
         """
         Handles the reopen button click event.
         """
-        print("Reopen clicked")
+        logger.info("Reopen button clicked")
 
     def on_banner_close_button_clicked(self, widget):
         """
         Handles the banner close button click event.
         """
-        print("Banner close clicked")
         banner_revealer = self.builder.get_object("banner_revealer")
         if banner_revealer:
             banner_revealer.set_reveal_child(False)
 
+            GLib.timeout_add(100, self._resize_window_after_banner)
+
     def on_scan_button_clicked(self, widget):
-        """Handles the scan button click event."""
-        print("Scan clicked")
+        """
+        Handles the scan button click event.
+        """
+        logger.info("Scan button clicked - Starting device scan")
+        status_stack = self.builder.get_object("status_stack")
+        if status_stack:
+            status_stack.set_visible_child_name("loading")
+
+        # Use GLib idle callback for device scanning
+        GLib.idle_add(self._scan_devices_idle)
 
     def on_menu_about_button_clicked(self, widget):
         """
@@ -164,6 +181,57 @@ class MainWindow(Gtk.Window):
         self.menu_popover.popdown()
         self.device_dialog.run()
         self.device_dialog.hide()
+
+    def _scan_devices_idle(self):
+        """
+        Scan devices from device manager. Shows msgs due to device scanning.
+        Returns False after 5 seconds.
+        """
+        try:
+            devices = self.device_manager.refresh_devices()
+            logger.info(f"Device scan completed - Found {len(devices)} devices")
+
+            if devices:
+                logger.info("Found devices:")
+                for device in devices:
+                    device_name = device.name or device.model or f"Device_{device.udid[:8]}"
+                    logger.info(f"  - {device_name} (UDID: {device.udid})")
+                self._show_banner_message(f"{len(devices)} device(s) found")
+            else:
+                logger.info("No devices found")
+                self._show_banner_message(
+                    "No iPhone/iPad found. Connect via USB and confirm 'Trust'"
+                    )
+
+            # Return to empty state after 5 seconds
+            GLib.timeout_add_seconds(5, self._back_to_empty)
+
+        except Exception as e:
+            logger.error(f"Device scan error: {e}")
+            self._show_banner_message("Scan error. Install required tools.")
+            self._back_to_empty()
+
+        return False
+
+    def _show_banner_message(self, message):
+        """
+        Show a message in the banner.
+        """
+        banner_label = self.builder.get_object("banner_label")
+        banner_revealer = self.builder.get_object("banner_revealer")
+
+        if banner_label and banner_revealer:
+            banner_label.set_text(message)
+            banner_revealer.set_reveal_child(True)
+            logger.debug(f"Banner message displayed: {message}")
+
+    def _resize_window_after_banner(self):
+        """
+        Resize window to natural size after banner is hidden.
+        """
+        width, _ = self.get_size()
+        self.resize(width, 1)
+        return False
 
     def _back_to_empty(self):
         """
