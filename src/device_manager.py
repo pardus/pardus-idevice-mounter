@@ -12,10 +12,13 @@ logger = get_logger('device_manager')
 class Device:
 
     def __init__(self, udid):
-        self.udid = udid
-        self.name = None
-        self.model = None
-        self.ios_version = None
+        self.udid = udid           # Unique device identifier
+        self.name = None           # Device name
+        self.model = None          # Device model
+        self.ios_version = None    # iOS version
+        self.storage_total = None  # Total storage (GB)
+        self.storage_free = None   # Free storage (GB)
+        self.is_trusted = False    # Trust status
 
 
 class DeviceManager:
@@ -105,9 +108,36 @@ class DeviceManager:
             device.model = device_data.get('ProductType', None)
             device.ios_version = device_data.get('ProductVersion', None)
 
+            # Parse storage information (in bytes => GB)
+            total_capacity = device_data.get('TotalDiskCapacity', None)
+            if total_capacity:
+                try:
+                    device.storage_total = int(total_capacity) / (1024**3)
+                except (ValueError, TypeError):
+                    logger.warning("Could not parse TotalDiskCapacity")
+
+            # Parse free storage (in bytes => GB)
+            free_capacity = device_data.get('AmountDataAvailable', None)
+            if free_capacity:
+                try:
+                    device.storage_free = int(free_capacity) / (1024**3)
+                except (ValueError, TypeError):
+                    logger.warning("Could not parse AmountDataAvailable")
+
+            # Check trust status, if device info = 0, device is trusted
+            device.is_trusted = True
+
+            # Log device info
+            free_gb = device.storage_free if device.storage_free else 0
+            total_gb = device.storage_total if device.storage_total else 0
             logger.info(
-                "Device: %s (%s, iOS %s)",
-                device.name, device.model, device.ios_version
+                "Device: %s (%s, iOS %s, %.0fGB free/%.0fGB total, Trusted: %s)",
+                device.name or "Unknown",
+                device.model or "Unknown",
+                device.ios_version or "Unknown",
+                free_gb,
+                total_gb,
+                device.is_trusted
             )
 
             return device
