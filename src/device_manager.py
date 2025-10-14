@@ -17,7 +17,6 @@ class Device:
         self.model = None          # Device model
         self.ios_version = None    # iOS version
         self.storage_total = None  # Total storage (GB)
-        self.storage_free = None   # Free storage (GB)
         self.is_trusted = False    # Trust status
 
 
@@ -108,34 +107,43 @@ class DeviceManager:
             device.model = device_data.get('ProductType', None)
             device.ios_version = device_data.get('ProductVersion', None)
 
-            # Parse storage information (in bytes => GB)
-            total_capacity = device_data.get('TotalDiskCapacity', None)
-            if total_capacity:
-                try:
-                    device.storage_total = int(total_capacity) / (1024**3)
-                except (ValueError, TypeError):
-                    logger.warning("Could not parse TotalDiskCapacity")
-
-            # Parse free storage (in bytes => GB)
-            free_capacity = device_data.get('AmountDataAvailable', None)
-            if free_capacity:
-                try:
-                    device.storage_free = int(free_capacity) / (1024**3)
-                except (ValueError, TypeError):
-                    logger.warning("Could not parse AmountDataAvailable")
+            # Get total capacity
+            try:
+                disk_result = subprocess.run(
+                    [
+                        'ideviceinfo', '-u', udid,
+                        '-q', 'com.apple.disk_usage',
+                        '-k', 'TotalDiskCapacity'
+                    ],
+                    capture_output=True,
+                    text=True,
+                    timeout=5,
+                    check=False
+                )
+                if disk_result.returncode == 0:
+                    value_str = disk_result.stdout.strip()
+                    try:
+                        total_bytes = int(value_str)
+                        device.storage_total = total_bytes / (1000**3)
+                    except ValueError:
+                        logger.warning(
+                            "Unexpected TotalDiskCapacity value: %r",
+                            value_str
+                        )
+            except (subprocess.SubprocessError, OSError) as e:
+                logger.warning("Could not get disk usage info: %s", e)
 
             # Check trust status, if device info = 0, device is trusted
             device.is_trusted = True
 
-            # Log device info
-            free_gb = device.storage_free if device.storage_free else 0
             total_gb = device.storage_total if device.storage_total else 0
+
+            # Log device info
             logger.info(
-                "Device: %s (%s, iOS %s, %.0fGB free/%.0fGB total, Trusted: %s)",
+                "Device: %s (%s, iOS %s, %.0fGB total, Trusted: %s)",
                 device.name or "Unknown",
                 device.model or "Unknown",
                 device.ios_version or "Unknown",
-                free_gb,
                 total_gb,
                 device.is_trusted
             )
