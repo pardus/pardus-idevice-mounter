@@ -62,7 +62,7 @@
               <object class="GtkImage" id="row_icon">
                 <property name="can-focus">False</property>
                 <property name="pixel-size">24</property>
-                <property name="icon-name">phone-apple-iphone-symbolic</property>
+                <property name="icon-name">phone-symbolic</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -113,7 +113,7 @@
             <child>
               <object class="GtkLabel" id="row_details">
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">128GB free · iOS 17.2</property>
+                <property name="label" translatable="yes">xxxGB free · iOS xx.x</property>
                 <property name="xalign">0</property>
               </object>
               <packing>
@@ -153,7 +153,6 @@
                 <property name="label" translatable="yes">Mount</property>
                 <property name="can-focus">False</property>
                 <property name="receives-default">False</property>
-                <signal name="clicked" handler="on_row_primary_button_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -166,7 +165,6 @@
                 <property name="label" translatable="yes">Details</property>
                 <property name="can-focus">False</property>
                 <property name="receives-default">False</property>
-                <signal name="clicked" handler="on_row_details_button_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -570,7 +568,7 @@
                 <property name="orientation">vertical</property>
                 <property name="spacing">8</property>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="GtkLabel" id="success_label">
                     <property name="can-focus">False</property>
                     <property name="label" translatable="yes">Device mounted successfully</property>
                     <attributes>
@@ -585,7 +583,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="GtkLabel" id="success_detail_label">
                     <property name="can-focus">False</property>
                     <property name="label" translatable="yes">File manager opened</property>
                   </object>
@@ -694,50 +692,6 @@
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="button_box">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="halign">center</property>
-            <property name="spacing">6</property>
-            <child>
-              <object class="GtkButton" id="mount_button">
-                <property name="label" translatable="yes">Mount</property>
-                <property name="sensitive">False</property>
-                <property name="can-focus">False</property>
-                <property name="receives-default">False</property>
-                <signal name="clicked" handler="on_mount_button_clicked" swapped="no"/>
-                <style>
-                  <class name="suggested-action"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="unmount_button">
-                <property name="label" translatable="yes">Unmount</property>
-                <property name="sensitive">False</property>
-                <property name="can-focus">False</property>
-                <property name="receives-default">False</property>
-                <signal name="clicked" handler="on_unmount_button_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
           </packing>
         </child>
         <child>
