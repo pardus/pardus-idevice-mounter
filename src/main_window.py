@@ -18,12 +18,12 @@ class MainWindow(Gtk.Window):
         """Initializes the main window."""
         super().__init__(application=application)
         self.builder = Gtk.Builder()
-        glade_file = os.path.join(
+        self.glade_file = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
             "../ui/main_window.glade"
         )
         try:
-            self.builder.add_from_file(glade_file)
+            self.builder.add_from_file(self.glade_file)
         except (FileNotFoundError, GLib.Error) as e:
             logger.error(f"Error loading glade file: {e}")
             return
@@ -33,10 +33,6 @@ class MainWindow(Gtk.Window):
         self.init_widgets()
         self.init_signals()
         self.set_version()
-
-        status_stack = self.builder.get_object("status_stack")
-        if status_stack:
-            status_stack.set_visible_child_name("empty")
 
     def init_widgets(self):
         """
@@ -58,6 +54,10 @@ class MainWindow(Gtk.Window):
             self.set_titlebar(header_bar)
             header_bar.show_all()
 
+        self.status_stack = self.builder.get_object("status_stack")
+        if self.status_stack:
+            self.status_stack.set_visible_child_name("empty")
+
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_title("Pardus iDevice Mounter")
         self.set_default_size(600, 400)
@@ -66,6 +66,7 @@ class MainWindow(Gtk.Window):
             self.set_icon_name(glade_window.get_icon_name())
 
         self.menu_popover = self.builder.get_object("menu_popover")
+        self.list_box = self.builder.get_object("list_box")
         self.device_dialog = self.builder.get_object("device_dialog")
         if self.device_dialog:
             self.device_dialog.set_transient_for(self)
@@ -80,12 +81,7 @@ class MainWindow(Gtk.Window):
         self.builder.connect_signals({
             "on_refresh_button_clicked": self.on_refresh_button_clicked,
             "on_scan_button_clicked": self.on_scan_button_clicked,
-            "on_mount_button_clicked": self.on_mount_button_clicked,
-            "on_unmount_button_clicked": self.on_unmount_button_clicked,
-            "on_row_primary_button_clicked": self.on_row_primary_button_clicked,
-            "on_row_details_button_clicked": self.on_row_details_button_clicked,
             "on_retry_button_clicked": self.on_retry_button_clicked,
-            "on_reopen_button_clicked": self.on_reopen_button_clicked,
             "on_menu_about_button_clicked": self.on_menu_about_button_clicked,
             "on_banner_close_button_clicked": self.on_banner_close_button_clicked
         })
@@ -110,41 +106,29 @@ class MainWindow(Gtk.Window):
         """
         Handles the refresh button click event.
         """
-        status_stack = self.builder.get_object("status_stack")
-        if status_stack:
-            status_stack.set_visible_child_name("loading")
+        logger.info("Refresh button clicked - Starting device scan")
+
+        if self.status_stack:
+            self.status_stack.set_visible_child_name("loading")
 
         GLib.idle_add(self._scan_devices_idle)
 
-    def on_mount_button_clicked(self, widget):
+    def on_scan_button_clicked(self, widget):
         """
-        Handles the mount button click event.
+        Handles the scan button click event.
         """
-        logger.info("Mount button clicked")
+        logger.info("Scan button clicked")
+        if self.status_stack:
+            self.status_stack.set_visible_child_name("loading")
 
-    def on_unmount_button_clicked(self, widget):
-        """
-        Handles the unmount button click event.
-        """
-        logger.info("Unmount button clicked")
-
-    def on_row_primary_button_clicked(self, widget):
-        """
-        Handles the row primary button click event.
-        """
-        logger.info("Row primary button clicked")
-
-    def on_row_details_button_clicked(self, widget):
-        """
-        Handles the row details button click event.
-        """
-        logger.info("Row details button clicked")
+        GLib.idle_add(self._scan_devices_idle)
 
     def on_retry_button_clicked(self, widget):
         """
         Handles the retry button click event.
         """
-        logger.info("Retry button clicked")
+        logger.info("Retry button clicked - Starting device scan")
+        self.on_scan_button_clicked(widget)
 
     def on_reopen_button_clicked(self, widget):
         """
@@ -162,18 +146,6 @@ class MainWindow(Gtk.Window):
 
             GLib.timeout_add(100, self._resize_window_after_banner)
 
-    def on_scan_button_clicked(self, widget):
-        """
-        Handles the scan button click event.
-        """
-        logger.info("Scan button clicked - Starting device scan")
-        status_stack = self.builder.get_object("status_stack")
-        if status_stack:
-            status_stack.set_visible_child_name("loading")
-
-        # Use GLib idle callback for device scanning
-        GLib.idle_add(self._scan_devices_idle)
-
     def on_menu_about_button_clicked(self, widget):
         """
         Shows about & credits parts of the device dialog.
@@ -182,34 +154,161 @@ class MainWindow(Gtk.Window):
         self.device_dialog.run()
         self.device_dialog.hide()
 
+    def _create_device_row(self, device):
+        """
+        Creates a row for each device.
+        Sets device information to the row.
+        """
+        # TODO: Add device model info (iphone13..)
+
+        logger.info(f"Creating row for device: {device.udid}")
+
+        row = Gtk.ListBoxRow()
+        row.device = device
+        row.is_mounted = False
+
+        # Main box
+        main_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
+        main_box.set_margin_start(8)
+        main_box.set_margin_end(8)
+        main_box.set_margin_top(6)
+        main_box.set_margin_bottom(6)
+
+        # Icon and trustted status dot
+        icon_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
+        icon = Gtk.Image.new_from_icon_name("phone-symbolic", Gtk.IconSize.LARGE_TOOLBAR)
+        icon.set_pixel_size(30)
+
+        dot_label = Gtk.Label(label="●")
+        if device.is_trusted:
+            dot_label.set_markup('<span foreground="green">●</span>')
+        else:
+            dot_label.set_markup('<span foreground="red">●</span>')
+
+        icon_box.pack_start(icon, False, False, 0)
+        icon_box.pack_start(dot_label, False, False, 0)
+
+        # Device information box
+        info_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        info_box.set_hexpand(True)
+
+        # Device name
+        name_label = Gtk.Label()
+        device_name = device.name or device.model or f"Device_{device.udid[:8]}"
+        name_label.set_markup(f'<span weight="bold" size="larger">{device_name}</span>')
+        name_label.set_xalign(0)
+
+        # Storage and iOS version
+        details_label = Gtk.Label()
+        storage_text = f"{device.storage_total:.0f}GB" if device.storage_total else "Unknown"
+        ios_text = device.ios_version or "Unknown"
+        details_label.set_text(f"{storage_text} · iOS {ios_text}")
+        details_label.set_xalign(0)
+
+        # Trust status ve UDID
+        status_label = Gtk.Label()
+        trust_text = "Trusted" if device.is_trusted else "Not Trusted"
+        udid_short = device.udid[:8] + "..." if len(device.udid) > 8 else device.udid
+        status_label.set_markup(f'<span style="italic">{trust_text} · UDID: {udid_short}</span>')
+        status_label.set_xalign(0)
+
+        info_box.pack_start(name_label, False, False, 0)
+        info_box.pack_start(details_label, False, False, 0)
+        info_box.pack_start(status_label, False, False, 0)
+
+        # Right side (Mount and details buttons)
+        button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+
+        mount_button = Gtk.Button(label="Mount")
+        mount_button.connect("clicked", self._on_row_mount_toggle, row)
+        row.mount_button = mount_button
+
+        details_button = Gtk.Button(label="Details")
+        details_button.connect("clicked", self._on_row_details_clicked, device)
+
+        button_box.pack_start(mount_button, False, False, 0)
+        button_box.pack_start(details_button, False, False, 0)
+
+        # Merge all boxes
+        main_box.pack_start(icon_box, False, False, 0)
+        main_box.pack_start(info_box, False, False, 0)
+        main_box.pack_start(button_box, False, False, 0)
+
+        row.add(main_box)
+        row.show_all()
+
+        return row
+
+    def _on_row_mount_toggle(self, widget, row):
+        """
+        Mount - unmount jobs
+        """
+        device = row.device
+
+        if not row.is_mounted:
+            # Mount
+            logger.info(f"Mounting device: {device.udid}")
+            # TODO: Mount things
+
+            # Assume success
+            row.is_mounted = True
+            row.mount_button.set_label("Unmount")
+            device_name = device.name or "Device"
+            self._show_banner_message(f"{device_name} mounted successfully")
+        else:
+            # Unmount
+            logger.info(f"Unmounting device: {device.udid}")
+            # TODO: unmount things
+            # Assume success
+            row.is_mounted = False
+            row.mount_button.set_label("Mount")
+            device_name = device.name or "Device"
+            self._show_banner_message(f"{device_name} unmounted")
+
+    def _on_row_details_clicked(self, widget, device):
+        """
+        Row details button clicked
+        """
+        logger.info(f"Details clicked for device: {device.udid}")
+        device_name = device.name or "Device"
+        # TODO: Show details dialog for selectedevice
+        # TODO: Add device model, name, storage, iOS version, UUID, trust status, battery level..
+        self._show_banner_message(f"Details for {device_name}")
+
     def _scan_devices_idle(self):
         """
-        Scan devices from device manager. Shows msgs due to device scanning.
-        Returns False after 5 seconds.
+        Scan devices and create a row for each device.
+        Switch between pages due to device scan results
         """
         try:
             devices = self.device_manager.refresh_devices()
             logger.info(f"Device scan completed - Found {len(devices)} devices")
 
+            # Del old rows
+            for child in self.list_box.get_children():
+                self.list_box.remove(child)
+
             if devices:
-                logger.info("Found devices:")
                 for device in devices:
-                    device_name = device.name or device.model or f"Device_{device.udid[:8]}"
-                    logger.info(f"  - {device_name} (UDID: {device.udid})")
+                    row = self._create_device_row(device)
+                    self.list_box.add(row)
                 self._show_banner_message(f"{len(devices)} device(s) found")
+
+                if self.status_stack:
+                    self.status_stack.set_visible_child_name("success")
             else:
                 logger.info("No devices found")
                 self._show_banner_message(
-                    "No iPhone/iPad found. Connect via USB and confirm 'Trust'"
-                    )
+                    "No iPhone/iPad found. Connect via USB and confirm 'Trust'")
 
-            # Return to empty state after 5 seconds
-            GLib.timeout_add_seconds(5, self._back_to_empty)
-
+                if self.status_stack:
+                    self.status_stack.set_visible_child_name("empty")
         except Exception as e:
             logger.error(f"Device scan error: {e}")
             self._show_banner_message("Scan error. Install required tools.")
-            self._back_to_empty()
+
+            if self.status_stack:
+                self.status_stack.set_visible_child_name("error")
 
         return False
 
@@ -223,7 +322,7 @@ class MainWindow(Gtk.Window):
         if banner_label and banner_revealer:
             banner_label.set_text(message)
             banner_revealer.set_reveal_child(True)
-            logger.debug(f"Banner message displayed: {message}")
+            logger.debug(f"Banner message: {message}")
 
     def _resize_window_after_banner(self):
         """
@@ -231,13 +330,4 @@ class MainWindow(Gtk.Window):
         """
         width, _ = self.get_size()
         self.resize(width, 1)
-        return False
-
-    def _back_to_empty(self):
-        """
-        Sets the status stack to the empty view.
-        """
-        status_stack = self.builder.get_object("status_stack")
-        if status_stack:
-            status_stack.set_visible_child_name("empty")
         return False

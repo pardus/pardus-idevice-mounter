@@ -567,10 +567,11 @@
                 <property name="valign">center</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">8</property>
+                <property name="homogeneous">True</property>
                 <child>
                   <object class="GtkLabel" id="success_label">
                     <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Device mounted successfully</property>
+                    <property name="label" translatable="yes">Devices Ready</property>
                     <attributes>
                       <attribute name="weight" value="bold"/>
                       <attribute name="scale" value="1.2"/>
@@ -585,47 +586,12 @@
                 <child>
                   <object class="GtkLabel" id="success_detail_label">
                     <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">File manager opened</property>
+                    <property name="label" translatable="yes">Select a device to mount</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkBox">
-                    <property name="can-focus">False</property>
-                    <property name="spacing">8</property>
-                    <child>
-                      <object class="GtkButton" id="reopen_button">
-                        <property name="label" translatable="yes">Open Again</property>
-                        <property name="can-focus">False</property>
-                        <property name="receives-default">False</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="unmount_success_button">
-                        <property name="label" translatable="yes">Unmount</property>
-                        <property name="can-focus">False</property>
-                        <property name="receives-default">False</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>
