@@ -29,6 +29,7 @@ class MainWindow(Gtk.Window):
 
         self.device_manager = DeviceManager()
         self.mount_manager = MountManager()
+        self.mount_manager.cleanup_stale_mounts()
 
         self.init_widgets()
         self.init_signals()

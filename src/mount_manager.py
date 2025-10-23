@@ -26,8 +26,7 @@ class MountManager:
             device_name = device.name if device.name else "Device"
 
             # Remove unsafe characters
-            device_name = re.sub(r'[/\\:*?"<>|]', '', device_name)
-            device_name = device_name.strip()
+            device_name = re.sub(r'[^a-zA-Z0-9_-]', '', device_name)
 
             if not device_name:
                 device_name = "Device"
@@ -39,8 +38,12 @@ class MountManager:
             # Check if mount point exists
             if mount_point.exists():
                 if self.is_mounted(str(mount_point)):
-                    logger.warning(f"Already mounted: {device_name}")
-                    return False, None, "Device already mounted"
+                    # Stale mount from prev. session
+                    logger.warning(f"Already mounted: {device_name}. Forcing unmount...")
+                    success, err = self.unmount_device(str(mount_point))
+                    if not success:
+                        logger.error(f"Failed to force unmount: {err}")
+                        return False, None, f"Failed to unmount stale mount: {err}"
                 else:
                     # Dir exists but not mounted - try to rm
                     try:
@@ -152,3 +155,17 @@ class MountManager:
             return result.returncode == 0
         except OSError:
             return False
+
+    def cleanup_stale_mounts(self):
+        """
+        Unmount any stale mounts from previous sessions.
+        """
+        if not self.mount_base_dir.exists():
+            return
+
+        for mount_dir in self.mount_base_dir.iterdir():
+            try:
+                if mount_dir.is_dir():
+                    self.unmount_device(str(mount_dir))
+            except OSError:
+                pass
