@@ -6,10 +6,9 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GLib
 from device_manager import DeviceManager
-# Import logging system
 from logger_config import get_logger
+from mount_manager import MountManager
 
-# Get logger for this module
 logger = get_logger('main_window')
 
 
@@ -29,6 +28,7 @@ class MainWindow(Gtk.Window):
             return
 
         self.device_manager = DeviceManager()
+        self.mount_manager = MountManager()
 
         self.init_widgets()
         self.init_signals()
@@ -166,6 +166,7 @@ class MainWindow(Gtk.Window):
         row = Gtk.ListBoxRow()
         row.device = device
         row.is_mounted = False
+        row.mount_point = None
 
         # Main box
         main_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
@@ -194,7 +195,7 @@ class MainWindow(Gtk.Window):
 
         # Device name
         name_label = Gtk.Label()
-        device_name = device.name or device.model or f"Device_{device.udid[:8]}"
+        device_name = device.name or device.model or f"Device_{device.udid}"
         name_label.set_markup(f'<span weight="bold" size="larger">{device_name}</span>')
         name_label.set_xalign(0)
 
@@ -244,26 +245,42 @@ class MainWindow(Gtk.Window):
         Mount - unmount jobs
         """
         device = row.device
+        device_name = device.name or "Device"
 
         if not row.is_mounted:
             # Mount
             logger.info(f"Mounting device: {device.udid}")
-            # TODO: Mount things
 
-            # Assume success
-            row.is_mounted = True
-            row.mount_button.set_label("Unmount")
-            device_name = device.name or "Device"
-            self._show_banner_message(f"{device_name} mounted successfully")
+            success, mount_point, error_msg = self.mount_manager.mount_device(device)
+
+            if success:
+                row.is_mounted = True
+                row.mount_point = mount_point
+                row.mount_button.set_label("Unmount")
+                self._show_banner_message(f"{device_name} mounted successfully")
+
+                # Open file manager
+                self.mount_manager.open_file_manager(mount_point)
+            else:
+                error_msg = error_msg or "Unknown error"
+                self._show_banner_message(f"Mount failed: {error_msg}")
+                logger.error(f"Mount failed for {device.udid}: {error_msg}")
+
         else:
             # Unmount
             logger.info(f"Unmounting device: {device.udid}")
-            # TODO: unmount things
-            # Assume success
-            row.is_mounted = False
-            row.mount_button.set_label("Mount")
-            device_name = device.name or "Device"
-            self._show_banner_message(f"{device_name} unmounted")
+
+            success, error_msg = self.mount_manager.unmount_device(row.mount_point)
+
+            if success:
+                row.is_mounted = False
+                row.mount_point = None
+                row.mount_button.set_label("Mount")
+                self._show_banner_message(f"{device_name} unmounted successfully")
+            else:
+                error_msg = error_msg or "Unknown error"
+                self._show_banner_message(f"Unmount failed: {error_msg}")
+                logger.error(f"Unmount failed for {device.udid}: {error_msg}")
 
     def _on_row_details_clicked(self, widget, device):
         """
