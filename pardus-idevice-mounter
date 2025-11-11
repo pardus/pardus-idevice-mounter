@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Sets Python path and imports main module to start the application.
+"""
+
+import sys
+
+sys.path.insert(0, '/usr/share/pardus/pardus-idevice-mounter/src/')
+
+import main
