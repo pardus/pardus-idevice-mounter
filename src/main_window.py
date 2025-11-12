@@ -11,6 +11,12 @@ from mount_manager import MountManager
 
 logger = get_logger('main_window')
 
+import locale
+from locale import gettext as _
+locale.bindtextdomain('pardus-idevice-mounter', '/usr/share/locale')
+locale.textdomain('pardus-idevice-mounter')
+_ = locale.gettext
+
 
 class MainWindow(Gtk.Window):
     def __init__(self, application):
@@ -60,7 +66,7 @@ class MainWindow(Gtk.Window):
             self.status_stack.set_visible_child_name("empty")
 
         self.set_position(Gtk.WindowPosition.CENTER)
-        self.set_title("Pardus iDevice Mounter")
+        self.set_title(_("Pardus iDevice Mounter"))
         self.set_default_size(600, 400)
 
         if glade_window:
@@ -196,20 +202,20 @@ class MainWindow(Gtk.Window):
 
         # Device name
         name_label = Gtk.Label()
-        device_name = device.name or device.model or f"Device_{device.udid}"
+        device_name = device.name or device.model or f"{_("Device")}_{device.udid}"
         name_label.set_markup(f'<span weight="bold" size="larger">{device_name}</span>')
         name_label.set_xalign(0)
 
         # Storage and iOS version
         details_label = Gtk.Label()
-        storage_text = f"{device.storage_total:.0f}GB" if device.storage_total else "Unknown"
-        ios_text = device.ios_version or "Unknown"
+        storage_text = f"{device.storage_total:.0f}GB" if device.storage_total else _("Unknown")
+        ios_text = device.ios_version or _("Unknown")
         details_label.set_text(f"{storage_text} · iOS {ios_text}")
         details_label.set_xalign(0)
 
         # Trust status ve UDID
         status_label = Gtk.Label()
-        trust_text = "Trusted" if device.is_trusted else "Not Trusted"
+        trust_text = _("Trusted") if device.is_trusted else _("Not Trusted")
         udid_short = device.udid[:8] + "..." if len(device.udid) > 8 else device.udid
         status_label.set_markup(f'<span style="italic">{trust_text} · UDID: {udid_short}</span>')
         status_label.set_xalign(0)
@@ -221,11 +227,11 @@ class MainWindow(Gtk.Window):
         # Right side (Mount and details buttons)
         button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
-        mount_button = Gtk.Button(label="Mount")
+        mount_button = Gtk.Button(label=_("Mount"))
         mount_button.connect("clicked", self._on_row_mount_toggle, row)
         row.mount_button = mount_button
 
-        details_button = Gtk.Button(label="Details")
+        details_button = Gtk.Button(label=_("Details"))
         details_button.connect("clicked", self._on_row_details_clicked, device)
 
         button_box.pack_start(mount_button, False, False, 0)
@@ -246,7 +252,7 @@ class MainWindow(Gtk.Window):
         Mount - unmount jobs
         """
         device = row.device
-        device_name = device.name or "Device"
+        device_name = device.name or _("Device")
 
         if not row.is_mounted:
             # Mount
@@ -258,13 +264,13 @@ class MainWindow(Gtk.Window):
                 row.is_mounted = True
                 row.mount_point = mount_point
                 row.mount_button.set_label("Unmount")
-                self._show_banner_message(f"{device_name} mounted successfully")
+                self._show_banner_message(_(f"{device_name} mounted successfully"))
 
                 # Open file manager
                 self.mount_manager.open_file_manager(mount_point)
             else:
                 error_msg = error_msg or "Unknown error"
-                self._show_banner_message(f"Mount failed: {error_msg}")
+                self._show_banner_message(_(f"Mount failed: {error_msg}"))
                 logger.error(f"Mount failed for {device.udid}: {error_msg}")
 
         else:
@@ -277,10 +283,10 @@ class MainWindow(Gtk.Window):
                 row.is_mounted = False
                 row.mount_point = None
                 row.mount_button.set_label("Mount")
-                self._show_banner_message(f"{device_name} unmounted successfully")
+                self._show_banner_message(_(f"{device_name} unmounted successfully"))
             else:
                 error_msg = error_msg or "Unknown error"
-                self._show_banner_message(f"Unmount failed: {error_msg}")
+                self._show_banner_message(_(f"Unmount failed: {error_msg}"))
                 logger.error(f"Unmount failed for {device.udid}: {error_msg}")
 
     def _on_row_details_clicked(self, widget, device):
@@ -291,7 +297,7 @@ class MainWindow(Gtk.Window):
         device_name = device.name or "Device"
         # TODO: Show details dialog for selectedevice
         # TODO: Add device model, name, storage, iOS version, UUID, trust status, battery level..
-        self._show_banner_message(f"Details for {device_name}")
+        self._show_banner_message(_(f"Details for {device_name}"))
 
     def _scan_devices_idle(self):
         """
@@ -313,20 +319,20 @@ class MainWindow(Gtk.Window):
                 for device in devices:
                     row = self._create_device_row(device)
                     self.list_box.add(row)
-                self._show_banner_message(f"{len(devices)} device(s) found")
+                self._show_banner_message(_(f"{len(devices)} device(s) found"))
 
                 if self.status_stack:
                     self.status_stack.set_visible_child_name("success")
             else:
                 logger.info("No devices found")
                 self._show_banner_message(
-                    "No iPhone/iPad found. Connect via USB and confirm 'Trust'")
+                    _("No iPhone/iPad found. Connect via USB and confirm 'Trust'"))
 
                 if self.status_stack:
                     self.status_stack.set_visible_child_name("empty")
         except Exception as e:
             logger.error(f"Device scan error: {e}")
-            self._show_banner_message("Scan error. Install required tools.")
+            self._show_banner_message(_("Scan error. Install required tools."))
 
             if self.status_stack:
                 self.status_stack.set_visible_child_name("error")

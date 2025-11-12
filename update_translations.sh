@@ -12,14 +12,14 @@ fi
 
 
 echo "updating pot file"
-xgettext -o po/pardus-hotspot.pot --files-from=po/files
+xgettext -o po/pardus-idevice-mounter.pot --files-from=po/files
 
 for lang in ${langs[@]}; do
 	if [[ -f po/$lang.po ]]; then
 		echo "updating $lang.po"
-		msgmerge -o po/$lang.po po/$lang.po po/pardus-hotspot.pot
+		msgmerge -o po/$lang.po po/$lang.po po/pardus-idevice-mounter.pot
 	else
 		echo "creating $lang.po"
-		cp po/pardus-hotspot.pot po/$lang.po
+		cp po/pardus-idevice-mounter.pot po/$lang.po
 	fi
 done

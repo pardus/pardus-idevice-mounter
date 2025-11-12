@@ -1,0 +1,167 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Emel Öztürk <emel.ozturk@pardus.org.tr>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-12 11:38+0300\n"
+"PO-Revision-Date: 2025-11-12 16:26+0300\n"
+"Last-Translator: Emel Öztürk <emel.ozturk@pardus.org.tr>\n"
+"Language-Team: Turkish <dev@pardus.org.tr>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Gtranslator 42.0\n"
+
+#: ui/main_window.glade:12
+msgid "Browse iPhone or iPad's files on your Linux system"
+msgstr "iPhone ya da iPad dosyalarınıza Linux sisteminizden erişin"
+
+#: ui/main_window.glade:100
+msgid "Device Name"
+msgstr "Cihaz Adı"
+
+#: ui/main_window.glade:116
+msgid "xxxGB free · iOS xx.x"
+msgstr "xxxGB boş alan · iOS xx x"
+
+#: ui/main_window.glade:128
+msgid "Trusted · UDID: xxxx…"
+msgstr "Güvenilir UDID: xxxx..."
+
+#: ui/main_window.glade:153 src/main_window.py:230
+msgid "Mount"
+msgstr "Bağla"
+
+#: ui/main_window.glade:165 src/main_window.py:234
+msgid "Details"
+msgstr "Ayrıntılar"
+
+#: ui/main_window.glade:220
+msgid "About"
+msgstr "Hakkında"
+
+#: ui/main_window.glade:269
+msgid "✕"
+msgstr "x"
+
+#: ui/main_window.glade:294
+msgid "Ready."
+msgstr "Hazır."
+
+#: ui/main_window.glade:382
+msgid "After connecting, confirm “Trust” on your device."
+msgstr "Bağlandıktan sonra cihazınızda \"Güven\" seçeneğini onaylayın."
+
+#: ui/main_window.glade:410
+msgid "Connected Devices"
+msgstr "Bağlı Cihazlar"
+
+#: ui/main_window.glade:452
+msgid "No device detected"
+msgstr "Cihaz algılanamadı"
+
+#: ui/main_window.glade:467
+msgid "Connect your iPhone/iPad via USB and confirm “Trust”."
+msgstr ""
+"iPhone/iPad cihazınızı USB ile baülayın ve \"Güven\" seçeneğini onaylayın."
+
+#: ui/main_window.glade:478
+msgid "Scan Devices"
+msgstr "Cihazları Tara"
+
+#: ui/main_window.glade:520
+msgid "Connecting…"
+msgstr "Bağlanıyor..."
+
+#: ui/main_window.glade:550
+msgid "Waiting for “Trust” confirmation…"
+msgstr "\"Güven\" onayı bekleniyor..."
+
+#: ui/main_window.glade:576
+msgid "Devices Ready"
+msgstr "Cihazlar Hazır"
+
+#: ui/main_window.glade:591
+msgid "Select a device to mount"
+msgstr "Bağlamak için bir cihaz seçin"
+
+#: ui/main_window.glade:616
+msgid "Connection error"
+msgstr "Bağlantı hatası"
+
+#: ui/main_window.glade:631
+msgid "Confirm “Trust” on the device • Check the USB cable"
+msgstr "Cihazda \"Güven\" seçeneğini onayların • USB kablosunu kontrol edin"
+
+#: ui/main_window.glade:641
+msgid "Try Again"
+msgstr "Tekrar Dene"
+
+#: ui/main_window.glade:682 src/main_window.py:69
+msgid "Pardus iDevice Mounter"
+msgstr "Pardus iOS Cihaz Bağlayıcı"
+
+#: ui/main_window.glade:705
+msgid "Refresh devices"
+msgstr "Cihazları yenile"
+
+#: src/main_window.py:211 src/main_window.py:212
+msgid "Unknown"
+msgstr "Bilinmiyor"
+
+#: src/main_window.py:218
+msgid "Trusted"
+msgstr "Güvenilir"
+
+#: src/main_window.py:218
+msgid "Not Trusted"
+msgstr "Güvenilmiyor"
+
+#: src/main_window.py:255
+msgid "Device"
+msgstr "Cihaz"
+
+#: src/main_window.py:267
+#, python-brace-format
+msgid "{device_name} mounted successfully"
+msgstr "{device_name} başarıyla bağlandı"
+
+#: src/main_window.py:273
+#, python-brace-format
+msgid "Mount failed: {error_msg}"
+msgstr "Bağlama başarısız: {error_msg}"
+
+#: src/main_window.py:286
+#, python-brace-format
+msgid "{device_name} unmounted successfully"
+msgstr "{device_name} başarıyla ayrıldı"
+
+#: src/main_window.py:289
+#, python-brace-format
+msgid "Unmount failed: {error_msg}"
+msgstr "Ayırma başarısız: {error_msg}"
+
+#: src/main_window.py:300
+#, python-brace-format
+msgid "Details for {device_name}"
+msgstr "{device_name} Ayrıntıları "
+
+#: src/main_window.py:322
+msgid "{len(devices)} device(s) found"
+msgstr "{len(devices)} cihaz bulundu"
+
+#: src/main_window.py:329
+msgid "No iPhone/iPad found. Connect via USB and confirm 'Trust'"
+msgstr ""
+"iPhone/iPad bulunamadı USB ile bağlayın ve \"Güven\" seçeneğini onaylayın."
+
+#: src/main_window.py:335
+msgid "Scan error. Install required tools."
+msgstr "Tarama hatası. Gerekli araçları yükleyin."
