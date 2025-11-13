@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-12 11:38+0300\n"
+"POT-Creation-Date: 2025-11-13 08:46+0300\n"
 "PO-Revision-Date: 2025-11-12 16:26+0300\n"
 "Last-Translator: Emel Öztürk <emel.ozturk@pardus.org.tr>\n"
 "Language-Team: Turkish <dev@pardus.org.tr>\n"
@@ -70,7 +70,7 @@ msgstr "Cihaz algılanamadı"
 #: ui/main_window.glade:467
 msgid "Connect your iPhone/iPad via USB and confirm “Trust”."
 msgstr ""
-"iPhone/iPad cihazınızı USB ile baülayın ve \"Güven\" seçeneğini onaylayın."
+"iPhone/iPad cihazınızı USB ile bağlayın ve \"Güven\" seçeneğini onaylayın."
 
 #: ui/main_window.glade:478
 msgid "Scan Devices"

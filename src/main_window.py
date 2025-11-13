@@ -13,7 +13,13 @@ logger = get_logger('main_window')
 
 import locale
 from locale import gettext as _
-locale.bindtextdomain('pardus-idevice-mounter', '/usr/share/locale')
+
+# Development: ../locale, Production: /usr/share/locale
+localedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../locale')
+if not os.path.exists(localedir):
+    localedir = '/usr/share/locale'
+
+locale.bindtextdomain('pardus-idevice-mounter', localedir)
 locale.textdomain('pardus-idevice-mounter')
 _ = locale.gettext
 
@@ -202,7 +208,7 @@ class MainWindow(Gtk.Window):
 
         # Device name
         name_label = Gtk.Label()
-        device_name = device.name or device.model or f"{_("Device")}_{device.udid}"
+        device_name = device.name or device.model or f'{_("Device")}_{device.udid}'
         name_label.set_markup(f'<span weight="bold" size="larger">{device_name}</span>')
         name_label.set_xalign(0)
 
