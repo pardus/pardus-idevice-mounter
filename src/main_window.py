@@ -19,6 +19,7 @@ localedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../locale'
 if not os.path.exists(localedir):
     localedir = '/usr/share/locale'
 
+locale.setlocale(locale.LC_ALL, '')
 locale.bindtextdomain('pardus-idevice-mounter', localedir)
 locale.textdomain('pardus-idevice-mounter')
 _ = locale.gettext
@@ -270,13 +271,13 @@ class MainWindow(Gtk.Window):
                 row.is_mounted = True
                 row.mount_point = mount_point
                 row.mount_button.set_label("Unmount")
-                self._show_banner_message(_(f"{device_name} mounted successfully"))
+                self._show_banner_message(_("{} mounted successfully").format(device_name))
 
                 # Open file manager
                 self.mount_manager.open_file_manager(mount_point)
             else:
                 error_msg = error_msg or "Unknown error"
-                self._show_banner_message(_(f"Mount failed: {error_msg}"))
+                self._show_banner_message(_("Mount failed: {}").format(error_msg))
                 logger.error(f"Mount failed for {device.udid}: {error_msg}")
 
         else:
@@ -289,10 +290,10 @@ class MainWindow(Gtk.Window):
                 row.is_mounted = False
                 row.mount_point = None
                 row.mount_button.set_label("Mount")
-                self._show_banner_message(_(f"{device_name} unmounted successfully"))
+                self._show_banner_message(_("{} unmounted successfully").format(device_name))
             else:
                 error_msg = error_msg or "Unknown error"
-                self._show_banner_message(_(f"Unmount failed: {error_msg}"))
+                self._show_banner_message(_("Unmount failed: {}").format(error_msg))
                 logger.error(f"Unmount failed for {device.udid}: {error_msg}")
 
     def _on_row_details_clicked(self, widget, device):
@@ -303,7 +304,7 @@ class MainWindow(Gtk.Window):
         device_name = device.name or "Device"
         # TODO: Show details dialog for selectedevice
         # TODO: Add device model, name, storage, iOS version, UUID, trust status, battery level..
-        self._show_banner_message(_(f"Details for {device_name}"))
+        self._show_banner_message(_("Details for {}").format(device_name))
 
     def _scan_devices_idle(self):
         """
@@ -322,7 +323,7 @@ class MainWindow(Gtk.Window):
                 for device in devices:
                     row = self._create_device_row(device)
                     self.list_box.add(row)
-                self._show_banner_message(_(f"{len(devices)} device(s) found"))
+                self._show_banner_message(_("{} device(s) found").format(len(devices)))
 
                 if self.status_stack:
                     self.status_stack.set_visible_child_name("success")
