@@ -311,9 +311,6 @@ class MainWindow(Gtk.Window):
         Switch between pages due to device scan results
         """
         try:
-            # Clean up any stale mounts before scanning
-            self.mount_manager.cleanup_stale_mounts()
-
             devices = self.device_manager.refresh_devices()
             logger.info(f"Device scan completed - Found {len(devices)} devices")
 
