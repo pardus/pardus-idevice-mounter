@@ -56,8 +56,13 @@ class Device:
         self.ios_version = None     # iOS version
         self.build_version = None   # iOS build version
         self.storage_total = None   # Total storage (GB)
+        self.storage_used = None    # Used storage
+        self.storage_available = None  # Available storage
         self.is_trusted = False     # Trust status
         self.serial_number = None   # Serial number
+        self.hardware_model = None  # Hardware model
+        self.battery_level = None   # Battery level (%)
+        self.battery_state = None   # Battery state
 
 
 class DeviceManager:
@@ -149,6 +154,7 @@ class DeviceManager:
             device.ios_version = device_data.get('ProductVersion', None)
             device.build_version = device_data.get('BuildVersion', None)
             device.serial_number = device_data.get('SerialNumber', None)
+            device.hardware_model = device_data.get('HardwareModel', None)
 
             # Get total capacity
             try:
@@ -175,6 +181,45 @@ class DeviceManager:
                         )
             except (subprocess.SubprocessError, OSError) as e:
                 logger.warning("Could not get disk usage info: %s", e)
+
+            # Get battery info
+            try:
+                battery_result = subprocess.run(
+                    [
+                        'ideviceinfo', '-u', udid,
+                        '-q', 'com.apple.mobile.battery'
+                    ],
+                    capture_output=True,
+                    text=True,
+                    timeout=5,
+                    check=False
+                )
+                if battery_result.returncode == 0:
+                    # Parse battery data
+                    battery_data = {}
+                    for line in battery_result.stdout.split('\n'):
+                        if ':' in line:
+                            key, value = line.split(':', 1)
+                            battery_data[key.strip()] = value.strip()
+
+                    # Get battery level
+                    battery_capacity = battery_data.get('BatteryCurrentCapacity')
+                    if battery_capacity:
+                        try:
+                            device.battery_level = int(battery_capacity)
+                        except ValueError:
+                            pass
+
+                    # Get battery state
+                    is_charging = battery_data.get('BatteryIsCharging')
+                    if is_charging:
+                        if is_charging.lower() == "true":
+                            device.battery_state = "Charging"
+                        elif is_charging.lower() == "false":
+                            device.battery_state = "Discharging"
+
+            except (subprocess.SubprocessError, OSError) as e:
+                logger.warning("Could not get battery info: %s", e)
 
             # Check trust status, if device info = 0, device is trusted
             device.is_trusted = True

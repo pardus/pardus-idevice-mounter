@@ -363,6 +363,50 @@ class MainWindow(Gtk.Window):
         if detail_serial:
             detail_serial.set_text(device.serial_number or "—")
 
+        detail_udid = self.builder.get_object("detail_udid")
+        if detail_udid:
+            detail_udid.set_text(device.udid or "—")
+
+        detail_hardware_model = self.builder.get_object("detail_hardware_model")
+        if detail_hardware_model:
+            detail_hardware_model.set_text(device.hardware_model or "—")
+
+        # Storage section
+        detail_storage_total = self.builder.get_object("detail_storage_total")
+        if detail_storage_total:
+            text = (f"{device.storage_total:.2f} GB"
+                    if device.storage_total else "—")
+            detail_storage_total.set_text(text)
+
+        detail_storage_used = self.builder.get_object("detail_storage_used")
+        if detail_storage_used:
+            text = (f"{device.storage_used:.2f} GB"
+                    if device.storage_used else "—")
+            detail_storage_used.set_text(text)
+
+        detail_storage_available = self.builder.get_object(
+            "detail_storage_available"
+        )
+        if detail_storage_available:
+            text = (f"{device.storage_available:.2f} GB"
+                    if device.storage_available else "—")
+            detail_storage_available.set_text(text)
+
+        # Battery section
+        detail_battery_level = self.builder.get_object(
+            "detail_battery_level"
+        )
+        if detail_battery_level:
+            text = (f"{device.battery_level}%"
+                    if device.battery_level is not None else "—")
+            detail_battery_level.set_text(text)
+
+        detail_battery_state = self.builder.get_object(
+            "detail_battery_state"
+        )
+        if detail_battery_state:
+            detail_battery_state.set_text(device.battery_state or "—")
+
     def _scan_devices_idle(self):
         """
         Scan devices and create a row for each device.
