@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-17 16:51+0300\n"
+"POT-Creation-Date: 2025-11-17 17:34+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -207,6 +207,10 @@ msgstr ""
 
 #: src/main_window.py:262
 msgid "Device"
+msgstr ""
+
+#: src/main_window.py:273
+msgid "Unmount"
 msgstr ""
 
 #: src/main_window.py:274

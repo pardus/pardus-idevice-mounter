@@ -86,6 +86,15 @@ class MainWindow(Gtk.Window):
             self.device_dialog.set_transient_for(self)
             self.device_dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
 
+        self.device_details_dialog = self.builder.get_object("device_details_dialog")
+        if self.device_details_dialog:
+            self.device_details_dialog.set_transient_for(self)
+            self.device_details_dialog.set_modal(True)
+
+            close_button = self.builder.get_object("close_button")
+            if close_button:
+                close_button.connect("clicked", self._on_details_dialog_close)
+
         self.show_all()
 
     def init_signals(self):
@@ -270,7 +279,7 @@ class MainWindow(Gtk.Window):
             if success:
                 row.is_mounted = True
                 row.mount_point = mount_point
-                row.mount_button.set_label("Unmount")
+                row.mount_button.set_label(_("Unmount"))
                 self._show_banner_message(_("{} mounted successfully").format(device_name))
 
                 # Open file manager
@@ -301,10 +310,27 @@ class MainWindow(Gtk.Window):
         Row details button clicked
         """
         logger.info(f"Details clicked for device: {device.udid}")
-        device_name = device.name or "Device"
-        # TODO: Show details dialog for selectedevice
-        # TODO: Add device model, name, storage, iOS version, UUID, trust status, battery level..
-        self._show_banner_message(_("Details for {}").format(device_name))
+
+        # Populate device information to dialog
+        self._get_device_details(device)
+
+        # Show dialog
+        self.device_details_dialog.run()
+        self.device_details_dialog.hide()
+
+    def _on_details_dialog_close(self, widget):
+
+        self.device_details_dialog.hide()
+
+    def _get_device_details(self, device):
+        """
+        Populate device details dialog with device infos
+        """
+        # Hardware section
+        detail_serial = self.builder.get_object("detail_serial")
+        if detail_serial:
+            detail_serial.set_text(device.serial_number or "—")
+
 
     def _scan_devices_idle(self):
         """

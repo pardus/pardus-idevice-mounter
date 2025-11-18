@@ -18,6 +18,7 @@ class Device:
         self.ios_version = None    # iOS version
         self.storage_total = None  # Total storage (GB)
         self.is_trusted = False    # Trust status
+        self.serial_number = None  # Serial number
 
 
 class DeviceManager:
@@ -106,6 +107,7 @@ class DeviceManager:
             device.name = device_data.get('DeviceName', None)
             device.model = device_data.get('ProductType', None)
             device.ios_version = device_data.get('ProductVersion', None)
+            device.serial_number = device_data.get('SerialNumber', None)
 
             # Get total capacity
             try:

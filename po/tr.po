@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-17 16:51+0300\n"
-"PO-Revision-Date: 2025-11-17 16:43+0300\n"
+"POT-Creation-Date: 2025-11-17 17:34+0300\n"
+"PO-Revision-Date: 2025-11-17 17:44+0300\n"
 "Last-Translator: Emel Öztürk <emel.ozturk@pardus.org.tr>\n"
 "Language-Team: Turkish <dev@pardus.org.tr>\n"
 "Language: tr\n"
@@ -213,6 +213,10 @@ msgstr "Güvenilmiyor"
 #: src/main_window.py:262
 msgid "Device"
 msgstr "Cihaz"
+
+#: src/main_window.py:273
+msgid "Unmount"
+msgstr "Bağı Çöz"
 
 #: src/main_window.py:274
 msgid "{} mounted successfully"
