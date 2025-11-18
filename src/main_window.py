@@ -326,11 +326,42 @@ class MainWindow(Gtk.Window):
         """
         Populate device details dialog with device infos
         """
+        # Header
+        device_name_label = self.builder.get_object("device_name_label")
+        if device_name_label:
+            device_name = device.name or _("Unknown Device")
+            device_name_label.set_text(device_name)
+
+        device_model_label = self.builder.get_object("device_model_label")
+        if device_model_label:
+            device_model = (
+                device.friendly_model or
+                device.model or
+                _("Unknown Model")
+            )
+            device_model_label.set_text(device_model)
+
+        # General section
+        detail_name = self.builder.get_object("detail_name")
+        if detail_name:
+            detail_name.set_text(device.name or "—")
+
+        detail_model = self.builder.get_object("detail_model")
+        if detail_model:
+            detail_model.set_text(device.model or "—")
+
+        detail_ios_version = self.builder.get_object("detail_ios_version")
+        if detail_ios_version:
+            detail_ios_version.set_text(device.ios_version or "—")
+
+        detail_build_version = self.builder.get_object("detail_build_version")
+        if detail_build_version:
+            detail_build_version.set_text(device.build_version or "—")
+
         # Hardware section
         detail_serial = self.builder.get_object("detail_serial")
         if detail_serial:
             detail_serial.set_text(device.serial_number or "—")
-
 
     def _scan_devices_idle(self):
         """

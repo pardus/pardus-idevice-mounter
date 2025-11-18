@@ -9,16 +9,55 @@ from logger_config import get_logger
 logger = get_logger('device_manager')
 
 
+def get_friendly_model_name(product_type):
+    """
+    Convert technical model code to user-friendly name.
+    """
+    models = {
+        # iPhone 11
+        "iPhone12,1": "iPhone 11",
+        "iPhone12,3": "iPhone 11 Pro",
+        "iPhone12,5": "iPhone 11 Pro Max",
+        # iPhone 12
+        "iPhone13,1": "iPhone 12 mini",
+        "iPhone13,2": "iPhone 12",
+        "iPhone13,3": "iPhone 12 Pro",
+        "iPhone13,4": "iPhone 12 Pro Max",
+        # iPhone 13
+        "iPhone14,4": "iPhone 13 mini",
+        "iPhone14,5": "iPhone 13",
+        "iPhone14,2": "iPhone 13 Pro",
+        "iPhone14,3": "iPhone 13 Pro Max",
+        # iPhone 14
+        "iPhone14,7": "iPhone 14",
+        "iPhone15,2": "iPhone 14 Pro",
+        "iPhone15,3": "iPhone 14 Pro Max",
+        # iPhone 15
+        "iPhone15,4": "iPhone 15",
+        "iPhone15,5": "iPhone 15 Plus",
+        "iPhone16,1": "iPhone 15 Pro",
+        "iPhone16,2": "iPhone 15 Pro Max",
+        # iPhone 16
+        "iPhone17,1": "iPhone 16 Pro",
+        "iPhone17,2": "iPhone 16 Pro Max",
+        "iPhone17,3": "iPhone 16",
+        "iPhone17,4": "iPhone 16 Plus",
+    }
+    return models.get(product_type, product_type)
+
+
 class Device:
 
     def __init__(self, udid):
-        self.udid = udid           # Unique device identifier
-        self.name = None           # Device name
-        self.model = None          # Device model
-        self.ios_version = None    # iOS version
-        self.storage_total = None  # Total storage (GB)
-        self.is_trusted = False    # Trust status
-        self.serial_number = None  # Serial number
+        self.udid = udid            # Unique device identifier
+        self.name = None            # Device name
+        self.model = None           # Device model (technical)
+        self.friendly_model = None  # Device model (user-friendly)
+        self.ios_version = None     # iOS version
+        self.build_version = None   # iOS build version
+        self.storage_total = None   # Total storage (GB)
+        self.is_trusted = False     # Trust status
+        self.serial_number = None   # Serial number
 
 
 class DeviceManager:
@@ -106,7 +145,9 @@ class DeviceManager:
             device = Device(udid)
             device.name = device_data.get('DeviceName', None)
             device.model = device_data.get('ProductType', None)
+            device.friendly_model = get_friendly_model_name(device.model)
             device.ios_version = device_data.get('ProductVersion', None)
+            device.build_version = device_data.get('BuildVersion', None)
             device.serial_number = device_data.get('SerialNumber', None)
 
             # Get total capacity
