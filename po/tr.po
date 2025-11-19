@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-17 17:34+0300\n"
-"PO-Revision-Date: 2025-11-17 17:44+0300\n"
+"POT-Creation-Date: 2025-11-19 11:46+0300\n"
+"PO-Revision-Date: 2025-11-19 11:45+0300\n"
 "Last-Translator: Emel Öztürk <emel.ozturk@pardus.org.tr>\n"
 "Language-Team: Turkish <dev@pardus.org.tr>\n"
 "Language: tr\n"
@@ -20,90 +20,88 @@ msgstr ""
 "X-Generator: Gtranslator 42.0\n"
 
 #: ui/main_window.glade:8
-#, fuzzy
 msgid "Device Details"
-msgstr "Ayrıntılar"
+msgstr "Cihaz Ayrıntıları"
 
 #: ui/main_window.glade:29
 msgid "Close"
-msgstr ""
+msgstr "Kapat"
 
 #: ui/main_window.glade:170
 msgid "General"
-msgstr ""
+msgstr "Genel"
 
 #: ui/main_window.glade:194
-#, fuzzy
 msgid "Device Name:"
-msgstr "Cihaz Adı"
+msgstr "Cihaz Adı:"
 
 #: ui/main_window.glade:222
 msgid "Model:"
-msgstr ""
+msgstr "Model:"
 
 #: ui/main_window.glade:250
 msgid "iOS Version:"
-msgstr ""
+msgstr "iOS Sürümü:"
 
 #: ui/main_window.glade:278
 msgid "Build Version:"
-msgstr ""
+msgstr "Yapı Sürümü:"
 
 #: ui/main_window.glade:349
 msgid "Hardware"
-msgstr ""
+msgstr "Donanım"
 
 #: ui/main_window.glade:373
 msgid "Serial Number:"
-msgstr ""
+msgstr "Seri Numarası:"
 
 #: ui/main_window.glade:401
 msgid "UDID:"
-msgstr ""
+msgstr "UDID"
 
 #: ui/main_window.glade:431
 msgid "Hardware Model:"
-msgstr ""
+msgstr "Donanım Modeli:"
 
 #: ui/main_window.glade:499
 msgid "Storage"
-msgstr ""
+msgstr "Depolama"
 
 #: ui/main_window.glade:523
 msgid "Total Capacity:"
-msgstr ""
+msgstr "Toplam Kapasite:"
 
 #: ui/main_window.glade:551
 msgid "Used:"
-msgstr ""
+msgstr "Kullanılan:"
 
 #: ui/main_window.glade:579
 msgid "Available:"
-msgstr ""
+msgstr "Kullanılabilir:"
 
 #: ui/main_window.glade:647
 msgid "Battery"
-msgstr ""
+msgstr "Pil"
 
 #: ui/main_window.glade:671
 msgid "Battery Level:"
-msgstr ""
+msgstr "Pil Seviyesi:"
 
 #: ui/main_window.glade:699
 msgid "Battery State:"
-msgstr ""
+msgstr "Pil Durumu:"
 
 #: ui/main_window.glade:773
 msgid "Network"
-msgstr ""
+msgstr "Ağ"
 
 #: ui/main_window.glade:797
 msgid "WiFi Address:"
-msgstr ""
+msgstr "WiFi Adresi:"
 
 #: ui/main_window.glade:825
 msgid "Bluetooth Address:"
-msgstr ""
+msgstr "Bluetooth Adresi:"
 
 #: ui/main_window.glade:906
 msgid "Browse iPhone or iPad's files on your Linux system"
@@ -121,11 +119,11 @@ msgstr "xxxGB boş alan · iOS xx x"
 msgid "Trusted · UDID: xxxx…"
 msgstr "Güvenilir UDID: xxxx..."
 
-#: ui/main_window.glade:1047 src/main_window.py:237
+#: ui/main_window.glade:1047 src/main_window.py:246
 msgid "Mount"
 msgstr "Bağla"
 
-#: ui/main_window.glade:1059 src/main_window.py:241
+#: ui/main_window.glade:1059 src/main_window.py:250
 msgid "Details"
 msgstr "Ayrıntılar"
 
@@ -198,55 +196,62 @@ msgstr "Pardus iOS Cihaz Bağlayıcı"
 msgid "Refresh devices"
 msgstr "Cihazları yenile"
 
-#: src/main_window.py:218 src/main_window.py:219
+#: src/main_window.py:227 src/main_window.py:228
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
-#: src/main_window.py:225
+#: src/main_window.py:234
 msgid "Trusted"
 msgstr "Güvenilir"
 
-#: src/main_window.py:225
+#: src/main_window.py:234
 msgid "Not Trusted"
 msgstr "Güvenilmiyor"
 
-#: src/main_window.py:262
+#: src/main_window.py:271
 msgid "Device"
 msgstr "Cihaz"
 
-#: src/main_window.py:273
+#: src/main_window.py:282
 msgid "Unmount"
 msgstr "Bağı Çöz"
 
-#: src/main_window.py:274
+#: src/main_window.py:283
 msgid "{} mounted successfully"
 msgstr "{} başarıyla bağlandı"
 
-#: src/main_window.py:280
+#: src/main_window.py:289
 msgid "Mount failed: {}"
 msgstr "Bağlama başarısız: {}"
 
-#: src/main_window.py:293
+#: src/main_window.py:302
 msgid "{} unmounted successfully"
 msgstr "{} başarıyla ayrıldı"
 
-#: src/main_window.py:296
+#: src/main_window.py:305
 msgid "Unmount failed: {}"
 msgstr "Ayırma başarısız: {}"
 
-#: src/main_window.py:307
-msgid "Details for {}"
-msgstr "{} Ayrıntıları"
+#: src/main_window.py:332
+msgid "Unknown Device"
+msgstr "Bilinmeyen Cihaz"
 
-#: src/main_window.py:326
+#: src/main_window.py:340
+msgid "Unknown Model"
+msgstr "Bilinmeyen Model"
+
+#: src/main_window.py:436
 msgid "{} device(s) found"
 msgstr "{} cihaz bulundu"
 
-#: src/main_window.py:333
+#: src/main_window.py:443
 msgid "No iPhone/iPad found. Connect via USB and confirm 'Trust'"
 msgstr ""
 "iPhone/iPad bulunamadı USB ile bağlayın ve \"Güven\" seçeneğini onaylayın."
 
-#: src/main_window.py:339
+#: src/main_window.py:449
 msgid "Scan error. Install required tools."
 msgstr "Tarama hatası. Gerekli araçları yükleyin."
+
+#~ msgid "Details for {}"
+#~ msgstr "{} Ayrıntıları"

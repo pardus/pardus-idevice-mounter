@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-17 17:34+0300\n"
+"POT-Creation-Date: 2025-11-19 11:46+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,11 +117,11 @@ msgstr ""
 msgid "Trusted · UDID: xxxx…"
 msgstr ""
 
-#: ui/main_window.glade:1047 src/main_window.py:237
+#: ui/main_window.glade:1047 src/main_window.py:246
 msgid "Mount"
 msgstr ""
 
-#: ui/main_window.glade:1059 src/main_window.py:241
+#: ui/main_window.glade:1059 src/main_window.py:250
 msgid "Details"
 msgstr ""
 
@@ -193,54 +193,58 @@ msgstr ""
 msgid "Refresh devices"
 msgstr ""
 
-#: src/main_window.py:218 src/main_window.py:219
+#: src/main_window.py:227 src/main_window.py:228
 msgid "Unknown"
 msgstr ""
 
-#: src/main_window.py:225
+#: src/main_window.py:234
 msgid "Trusted"
 msgstr ""
 
-#: src/main_window.py:225
+#: src/main_window.py:234
 msgid "Not Trusted"
 msgstr ""
 
-#: src/main_window.py:262
+#: src/main_window.py:271
 msgid "Device"
 msgstr ""
 
-#: src/main_window.py:273
+#: src/main_window.py:282
 msgid "Unmount"
 msgstr ""
 
-#: src/main_window.py:274
+#: src/main_window.py:283
 msgid "{} mounted successfully"
 msgstr ""
 
-#: src/main_window.py:280
+#: src/main_window.py:289
 msgid "Mount failed: {}"
 msgstr ""
 
-#: src/main_window.py:293
+#: src/main_window.py:302
 msgid "{} unmounted successfully"
 msgstr ""
 
-#: src/main_window.py:296
+#: src/main_window.py:305
 msgid "Unmount failed: {}"
 msgstr ""
 
-#: src/main_window.py:307
-msgid "Details for {}"
+#: src/main_window.py:332
+msgid "Unknown Device"
 msgstr ""
 
-#: src/main_window.py:326
+#: src/main_window.py:340
+msgid "Unknown Model"
+msgstr ""
+
+#: src/main_window.py:436
 msgid "{} device(s) found"
 msgstr ""
 
-#: src/main_window.py:333
+#: src/main_window.py:443
 msgid "No iPhone/iPad found. Connect via USB and confirm 'Trust'"
 msgstr ""
 
-#: src/main_window.py:339
+#: src/main_window.py:449
 msgid "Scan error. Install required tools."
 msgstr ""
