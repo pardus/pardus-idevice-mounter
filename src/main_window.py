@@ -102,9 +102,9 @@ class MainWindow(Gtk.Window):
         Initializes signals for the widgets.
         """
         self.builder.connect_signals({
-            "on_refresh_button_clicked": self.on_refresh_button_clicked,
+            "on_refresh_button_clicked": self.on_scan_button_clicked,
             "on_scan_button_clicked": self.on_scan_button_clicked,
-            "on_retry_button_clicked": self.on_retry_button_clicked,
+            "on_retry_button_clicked": self.on_scan_button_clicked,
             "on_menu_about_button_clicked": self.on_menu_about_button_clicked,
             "on_banner_close_button_clicked": self.on_banner_close_button_clicked
         })
@@ -125,17 +125,6 @@ class MainWindow(Gtk.Window):
         except FileNotFoundError:
             pass
 
-    def on_refresh_button_clicked(self, widget):
-        """
-        Handles the refresh button click event.
-        """
-        logger.info("Refresh button clicked - Starting device scan")
-
-        if self.status_stack:
-            self.status_stack.set_visible_child_name("loading")
-
-        GLib.idle_add(self._scan_devices_idle)
-
     def on_scan_button_clicked(self, widget):
         """
         Handles the scan button click event.
@@ -145,19 +134,6 @@ class MainWindow(Gtk.Window):
             self.status_stack.set_visible_child_name("loading")
 
         GLib.idle_add(self._scan_devices_idle)
-
-    def on_retry_button_clicked(self, widget):
-        """
-        Handles the retry button click event.
-        """
-        logger.info("Retry button clicked - Starting device scan")
-        self.on_scan_button_clicked(widget)
-
-    def on_reopen_button_clicked(self, widget):
-        """
-        Handles the reopen button click event.
-        """
-        logger.info("Reopen button clicked")
 
     def on_banner_close_button_clicked(self, widget):
         """
