@@ -407,6 +407,15 @@ class MainWindow(Gtk.Window):
         if detail_battery_state:
             detail_battery_state.set_text(device.battery_state or "—")
 
+        # Network section
+        detail_wifi_mac = self.builder.get_object("detail_wifi_mac")
+        if detail_wifi_mac:
+            detail_wifi_mac.set_text(device.wifi_mac or "—")
+
+        detail_bluetooth_mac = self.builder.get_object("detail_bluetooth_mac")
+        if detail_bluetooth_mac:
+            detail_bluetooth_mac.set_text(device.bluetooth_mac or "—")
+
     def _scan_devices_idle(self):
         """
         Scan devices and create a row for each device.

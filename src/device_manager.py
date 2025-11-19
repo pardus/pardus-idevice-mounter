@@ -49,20 +49,22 @@ def get_friendly_model_name(product_type):
 class Device:
 
     def __init__(self, udid):
-        self.udid = udid            # Unique device identifier
-        self.name = None            # Device name
-        self.model = None           # Device model (technical)
-        self.friendly_model = None  # Device model (user-friendly)
-        self.ios_version = None     # iOS version
-        self.build_version = None   # iOS build version
-        self.storage_total = None   # Total storage (GB)
-        self.storage_used = None    # Used storage
-        self.storage_available = None  # Available storage
-        self.is_trusted = False     # Trust status
-        self.serial_number = None   # Serial number
-        self.hardware_model = None  # Hardware model
-        self.battery_level = None   # Battery level (%)
-        self.battery_state = None   # Battery state
+        self.udid = udid                # Unique device identifier
+        self.name = None                # Device name
+        self.model = None               # Device model (technical)
+        self.friendly_model = None      # Device model (user-friendly)
+        self.ios_version = None         # iOS version
+        self.build_version = None       # iOS build version
+        self.storage_total = None       # Total storage (GB)
+        self.storage_used = None        # Used storage
+        self.storage_available = None   # Available storage
+        self.is_trusted = False         # Trust status
+        self.serial_number = None       # Serial number
+        self.hardware_model = None      # Hardware model
+        self.battery_level = None       # Battery level (%)
+        self.battery_state = None       # Battery state
+        self.wifi_mac = None            # WiFi MAC address
+        self.bluetooth_mac = None       # Bluetooth MAC address
 
 
 class DeviceManager:
@@ -155,14 +157,15 @@ class DeviceManager:
             device.build_version = device_data.get('BuildVersion', None)
             device.serial_number = device_data.get('SerialNumber', None)
             device.hardware_model = device_data.get('HardwareModel', None)
+            device.wifi_mac = device_data.get('WiFiAddress', None)
+            device.bluetooth_mac = device_data.get('BluetoothAddress', None)
 
-            # Get total capacity
+            # These values are based on libimobiledevice's disk_usage domain
             try:
                 disk_result = subprocess.run(
                     [
                         'ideviceinfo', '-u', udid,
-                        '-q', 'com.apple.disk_usage',
-                        '-k', 'TotalDiskCapacity'
+                        '-q', 'com.apple.disk_usage'
                     ],
                     capture_output=True,
                     text=True,
@@ -170,15 +173,36 @@ class DeviceManager:
                     check=False
                 )
                 if disk_result.returncode == 0:
-                    value_str = disk_result.stdout.strip()
-                    try:
-                        total_bytes = int(value_str)
-                        device.storage_total = total_bytes / (1000**3)
-                    except ValueError:
-                        logger.warning(
-                            "Unexpected TotalDiskCapacity value: %r",
-                            value_str
-                        )
+                    # Parse disk usage data
+                    disk_data = {}
+                    for line in disk_result.stdout.split('\n'):
+                        if ':' in line:
+                            key, value = line.split(':', 1)
+                            disk_data[key.strip()] = value.strip()
+
+                    # Total capacity
+                    total_capacity = disk_data.get('TotalDiskCapacity')
+                    if total_capacity:
+                        try:
+                            total_bytes = int(total_capacity)
+                            device.storage_total = total_bytes / (1000**3)
+                        except ValueError:
+                            pass
+                    # Available storage
+                    available_capacity = disk_data.get('TotalDataAvailable')
+                    if available_capacity:
+                        try:
+                            available_bytes = int(available_capacity)
+                            device.storage_available = available_bytes / (1000**3)
+                        except ValueError:
+                            pass
+
+                    # Calculate used storage
+                    # NOTE: This may show less than iPhone because iPhone
+                    # includes system data, cache, and reserved space
+                    if device.storage_total and device.storage_available:
+                        device.storage_used = device.storage_total - device.storage_available
+
             except (subprocess.SubprocessError, OSError) as e:
                 logger.warning("Could not get disk usage info: %s", e)
 
