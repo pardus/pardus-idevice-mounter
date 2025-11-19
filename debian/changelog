@@ -1,3 +1,21 @@
+pardus-idevice-mounter (1.0.0) unstable; urgency=medium
+
+  * Add desktop file
+  * Add translate files
+  * Fix string syntax & locale path for dev
+  * Add device details part for ui
+  * Add Bilgem signature
+  * Use lazy unmount (-uz) for stale mount cleanup
+  * Add translations
+  * Edit ignore file
+  * Add device details
+  * Add general section for device infos
+  * Add hardware and battery sections for device infos
+  * Add storage parts
+  * Add translations
+
+ -- Emel Öztürk <emel.ozturk@pardus.org.tr>  Wed, 19 Nov 2025 11:53:00 +0300
+
 pardus-idevice-mounter (0.0.1) unstable; urgency=medium
 
   * Initial release
