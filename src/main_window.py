@@ -2,6 +2,7 @@
 
 
 import os
+import threading
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GLib
@@ -47,6 +48,8 @@ class MainWindow(Gtk.Window):
         self.init_widgets()
         self.init_signals()
         self.set_version()
+
+        self.is_scanning = False
 
     def init_widgets(self):
         """
@@ -129,11 +132,17 @@ class MainWindow(Gtk.Window):
         """
         Handles the scan button click event.
         """
-        logger.info("Scan button clicked")
+        if self.is_scanning:
+            return
+
+        self.is_scanning = True
+
         if self.status_stack:
             self.status_stack.set_visible_child_name("loading")
 
-        GLib.idle_add(self._scan_devices_idle)
+        thread = threading.Thread(target=self._scan_devices_thread)
+        thread.daemon = True
+        thread.start()
 
     def on_banner_close_button_clicked(self, widget):
         """
@@ -274,7 +283,7 @@ class MainWindow(Gtk.Window):
             if success:
                 row.is_mounted = False
                 row.mount_point = None
-                row.mount_button.set_label("Mount")
+                row.mount_button.set_label(_("Mount"))
                 self._show_banner_message(_("{} unmounted successfully").format(device_name))
             else:
                 error_msg = error_msg or "Unknown error"
@@ -392,13 +401,23 @@ class MainWindow(Gtk.Window):
         if detail_bluetooth_mac:
             detail_bluetooth_mac.set_text(device.bluetooth_mac or "—")
 
-    def _scan_devices_idle(self):
+    def _scan_devices_thread(self):
         """
-        Scan devices and create a row for each device.
-        Switch between pages due to device scan results
+        This function runs in a separate thread to avoid ui freezing.
         """
         try:
             devices = self.device_manager.refresh_devices()
+            GLib.idle_add(self._update_ui_with_devices, devices)
+
+        except Exception as e:
+            logger.error(f"Device scan error in thread: {e}")
+            GLib.idle_add(self._handle_scan_error, e)
+
+    def _update_ui_with_devices(self, devices):
+        """
+        Updates UI with scanned devices.
+        """
+        try:
             logger.info(f"Device scan completed - Found {len(devices)} devices")
 
             # Del old rows
@@ -421,12 +440,24 @@ class MainWindow(Gtk.Window):
                 if self.status_stack:
                     self.status_stack.set_visible_child_name("empty")
         except Exception as e:
-            logger.error(f"Device scan error: {e}")
-            self._show_banner_message(_("Scan error. Install required tools."))
+            logger.error(f"Error updating UI: {e}")
+            self._handle_scan_error(e)
+        finally:
+            self.is_scanning = False
 
-            if self.status_stack:
-                self.status_stack.set_visible_child_name("error")
+        return False
 
+    def _handle_scan_error(self, error):
+        """
+        Handles scan errors in the UI.
+        """
+        logger.error(f"Device scan error: {error}")
+        self._show_banner_message(_("Scan error. Install required tools."))
+
+        if self.status_stack:
+            self.status_stack.set_visible_child_name("error")
+
+        self.is_scanning = False
         return False
 
     def _show_banner_message(self, message):

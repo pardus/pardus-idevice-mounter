@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-19 11:46+0300\n"
+"POT-Creation-Date: 2025-11-20 17:05+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,11 +117,11 @@ msgstr ""
 msgid "Trusted · UDID: xxxx…"
 msgstr ""
 
-#: ui/main_window.glade:1047 src/main_window.py:246
+#: ui/main_window.glade:1047 src/main_window.py:231 src/main_window.py:286
 msgid "Mount"
 msgstr ""
 
-#: ui/main_window.glade:1059 src/main_window.py:250
+#: ui/main_window.glade:1059 src/main_window.py:235
 msgid "Details"
 msgstr ""
 
@@ -185,7 +185,7 @@ msgstr ""
 msgid "Try Again"
 msgstr ""
 
-#: ui/main_window.glade:1619 src/main_window.py:76
+#: ui/main_window.glade:1619 src/main_window.py:79
 msgid "Pardus iDevice Mounter"
 msgstr ""
 
@@ -193,58 +193,58 @@ msgstr ""
 msgid "Refresh devices"
 msgstr ""
 
-#: src/main_window.py:227 src/main_window.py:228
+#: src/main_window.py:212 src/main_window.py:213
 msgid "Unknown"
 msgstr ""
 
-#: src/main_window.py:234
+#: src/main_window.py:219
 msgid "Trusted"
 msgstr ""
 
-#: src/main_window.py:234
+#: src/main_window.py:219
 msgid "Not Trusted"
 msgstr ""
 
-#: src/main_window.py:271
+#: src/main_window.py:256
 msgid "Device"
 msgstr ""
 
-#: src/main_window.py:282
+#: src/main_window.py:267
 msgid "Unmount"
 msgstr ""
 
-#: src/main_window.py:283
+#: src/main_window.py:268
 msgid "{} mounted successfully"
 msgstr ""
 
-#: src/main_window.py:289
+#: src/main_window.py:274
 msgid "Mount failed: {}"
 msgstr ""
 
-#: src/main_window.py:302
+#: src/main_window.py:287
 msgid "{} unmounted successfully"
 msgstr ""
 
-#: src/main_window.py:305
+#: src/main_window.py:290
 msgid "Unmount failed: {}"
 msgstr ""
 
-#: src/main_window.py:332
+#: src/main_window.py:317
 msgid "Unknown Device"
 msgstr ""
 
-#: src/main_window.py:340
+#: src/main_window.py:325
 msgid "Unknown Model"
 msgstr ""
 
-#: src/main_window.py:436
+#: src/main_window.py:431
 msgid "{} device(s) found"
 msgstr ""
 
-#: src/main_window.py:443
+#: src/main_window.py:438
 msgid "No iPhone/iPad found. Connect via USB and confirm 'Trust'"
 msgstr ""
 
-#: src/main_window.py:449
+#: src/main_window.py:455
 msgid "Scan error. Install required tools."
 msgstr ""
