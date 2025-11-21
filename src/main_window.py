@@ -78,6 +78,7 @@ class MainWindow(Gtk.Window):
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_title(_("Pardus iDevice Mounter"))
         self.set_default_size(600, 400)
+        self.set_resizable(False)
 
         if glade_window:
             self.set_icon_name(glade_window.get_icon_name())
@@ -93,6 +94,7 @@ class MainWindow(Gtk.Window):
         if self.device_details_dialog:
             self.device_details_dialog.set_transient_for(self)
             self.device_details_dialog.set_modal(True)
+            self.device_details_dialog.set_resizable(False)
 
             close_button = self.builder.get_object("close_button")
             if close_button:

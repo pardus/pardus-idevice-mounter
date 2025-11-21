@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-20 17:05+0300\n"
+"POT-Creation-Date: 2025-11-21 15:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,11 +117,11 @@ msgstr ""
 msgid "Trusted · UDID: xxxx…"
 msgstr ""
 
-#: ui/main_window.glade:1047 src/main_window.py:231 src/main_window.py:286
+#: ui/main_window.glade:1047 src/main_window.py:233 src/main_window.py:288
 msgid "Mount"
 msgstr ""
 
-#: ui/main_window.glade:1059 src/main_window.py:235
+#: ui/main_window.glade:1059 src/main_window.py:237
 msgid "Details"
 msgstr ""
 
@@ -145,106 +145,106 @@ msgstr ""
 msgid "Connected Devices"
 msgstr ""
 
-#: ui/main_window.glade:1346
-msgid "No device detected"
+#: ui/main_window.glade:1345
+msgid "No device detected!"
 msgstr ""
 
-#: ui/main_window.glade:1361
+#: ui/main_window.glade:1360
 msgid "Connect your iPhone/iPad via USB and confirm “Trust”."
 msgstr ""
 
-#: ui/main_window.glade:1372
+#: ui/main_window.glade:1371
 msgid "Scan Devices"
 msgstr ""
 
-#: ui/main_window.glade:1414
+#: ui/main_window.glade:1413
 msgid "Connecting…"
 msgstr ""
 
-#: ui/main_window.glade:1444
+#: ui/main_window.glade:1443
 msgid "Waiting for “Trust” confirmation…"
 msgstr ""
 
-#: ui/main_window.glade:1470
+#: ui/main_window.glade:1469
 msgid "Devices Ready"
 msgstr ""
 
-#: ui/main_window.glade:1485
+#: ui/main_window.glade:1484
 msgid "Select a device to mount"
 msgstr ""
 
-#: ui/main_window.glade:1510
+#: ui/main_window.glade:1509
 msgid "Connection error"
 msgstr ""
 
-#: ui/main_window.glade:1525
+#: ui/main_window.glade:1524
 msgid "Confirm “Trust” on the device • Check the USB cable"
 msgstr ""
 
-#: ui/main_window.glade:1535
+#: ui/main_window.glade:1534
 msgid "Try Again"
 msgstr ""
 
-#: ui/main_window.glade:1619 src/main_window.py:79
+#: ui/main_window.glade:1618 src/main_window.py:79
 msgid "Pardus iDevice Mounter"
 msgstr ""
 
-#: ui/main_window.glade:1642
+#: ui/main_window.glade:1641
 msgid "Refresh devices"
 msgstr ""
 
-#: src/main_window.py:212 src/main_window.py:213
+#: src/main_window.py:214 src/main_window.py:215
 msgid "Unknown"
 msgstr ""
 
-#: src/main_window.py:219
+#: src/main_window.py:221
 msgid "Trusted"
 msgstr ""
 
-#: src/main_window.py:219
+#: src/main_window.py:221
 msgid "Not Trusted"
 msgstr ""
 
-#: src/main_window.py:256
+#: src/main_window.py:258
 msgid "Device"
 msgstr ""
 
-#: src/main_window.py:267
+#: src/main_window.py:269
 msgid "Unmount"
 msgstr ""
 
-#: src/main_window.py:268
+#: src/main_window.py:270
 msgid "{} mounted successfully"
 msgstr ""
 
-#: src/main_window.py:274
+#: src/main_window.py:276
 msgid "Mount failed: {}"
 msgstr ""
 
-#: src/main_window.py:287
+#: src/main_window.py:289
 msgid "{} unmounted successfully"
 msgstr ""
 
-#: src/main_window.py:290
+#: src/main_window.py:292
 msgid "Unmount failed: {}"
 msgstr ""
 
-#: src/main_window.py:317
+#: src/main_window.py:319
 msgid "Unknown Device"
 msgstr ""
 
-#: src/main_window.py:325
+#: src/main_window.py:327
 msgid "Unknown Model"
 msgstr ""
 
-#: src/main_window.py:431
+#: src/main_window.py:433
 msgid "{} device(s) found"
 msgstr ""
 
-#: src/main_window.py:438
+#: src/main_window.py:440
 msgid "No iPhone/iPad found. Connect via USB and confirm 'Trust'"
 msgstr ""
 
-#: src/main_window.py:455
+#: src/main_window.py:457
 msgid "Scan error. Install required tools."
 msgstr ""
