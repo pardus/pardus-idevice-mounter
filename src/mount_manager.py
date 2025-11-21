@@ -194,24 +194,33 @@ class MountManager:
         if not self.mount_base_dir.exists():
             return
 
-        for mount_dir in self.mount_base_dir.iterdir():
-            try:
-                # Check if its a dir
-                if not mount_dir.is_dir():
-                    continue
+        try:
+            # Use os.listdir instead of iterdir to avoid stat calls
+            mount_dirs = os.listdir(self.mount_base_dir)
+        except OSError:
+            return
 
-                # Check if its actually a mount point
-                if self.is_mounted(str(mount_dir)):
-                    logger.info(f"Cleaning up stale mount: {mount_dir.name}")
-                    self.unmount_device(str(mount_dir), force=True)
-                else:
-                    # Not mounted, dir exist, remove it
-                    try:
-                        mount_dir.rmdir()
-                        logger.debug(f"Removed empty mount directory: {mount_dir.name}")
-                    except OSError:
-                        logger.debug(f"Attempting force unmount of: {mount_dir.name}")
-                        self.unmount_device(str(mount_dir), force=True)
-            except OSError as e:
-                logger.warning(f"I/O error accessing {mount_dir.name} (stale mount): {e}")
-                self.unmount_device(str(mount_dir), force=True)
+        for mount_name in mount_dirs:
+            mount_path = self.mount_base_dir / mount_name
+
+            try:
+                result = subprocess.run(
+                    ['fusermount', '-uz', str(mount_path)],
+                    timeout=1,
+                    capture_output=True,
+                    check=False
+                )
+
+                if result.returncode == 0:
+                    logger.info(f"Unmounted stale mount: {mount_name}")
+
+                try:
+                    os.rmdir(mount_path)
+                    logger.debug(f"Removed mount directory: {mount_name}")
+                except OSError:
+                    pass
+
+            except subprocess.TimeoutExpired:
+                logger.warning(f"Timeout unmounting {mount_name}")
+            except Exception as e:
+                logger.warning(f"Error cleaning up {mount_name}: {e}")
