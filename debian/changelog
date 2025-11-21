@@ -1,3 +1,9 @@
+pardus-idevice-mounter (1.0.2) unstable; urgency=medium
+
+  * Remove empty mount dirs without mount point check
+
+ -- Emel Öztürk <emel.ozturk@pardus.org.tr>  Fri, 21 Nov 2025 23:20:17 +0300
+
 pardus-idevice-mounter (1.0.1) unstable; urgency=medium
 
   * Clean up unnecessary code
