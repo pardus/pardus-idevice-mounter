@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-21 15:24+0300\n"
+"POT-Creation-Date: 2025-11-24 16:10+0300\n"
 "PO-Revision-Date: 2025-11-21 15:11+0300\n"
 "Last-Translator: Emel Öztürk <emel.ozturk@pardus.org.tr>\n"
 "Language-Team: Turkish <dev@pardus.org.tr>\n"
@@ -119,11 +119,11 @@ msgstr "xxxGB boş alan · iOS xx x"
 msgid "Trusted · UDID: xxxx…"
 msgstr "Güvenilir UDID: xxxx..."
 
-#: ui/main_window.glade:1047 src/main_window.py:233 src/main_window.py:288
+#: ui/main_window.glade:1047 src/main_window.py:235 src/main_window.py:295
 msgid "Mount"
 msgstr "Bağla"
 
-#: ui/main_window.glade:1059 src/main_window.py:237
+#: ui/main_window.glade:1059 src/main_window.py:239
 msgid "Details"
 msgstr "Ayrıntılar"
 
@@ -172,7 +172,7 @@ msgstr "\"Güven\" onayı bekleniyor..."
 msgid "Devices Ready"
 msgstr "Cihazlar Hazır"
 
-#: ui/main_window.glade:1484
+#: ui/main_window.glade:1484 src/main_window.py:299 src/main_window.py:450
 msgid "Select a device to mount"
 msgstr "Bağlamak için bir cihaz seçin"
 
@@ -188,7 +188,7 @@ msgstr "Cihazda \"Güven\" seçeneğini onayların • USB kablosunu kontrol edi
 msgid "Try Again"
 msgstr "Tekrar Dene"
 
-#: ui/main_window.glade:1618 src/main_window.py:79
+#: ui/main_window.glade:1618 src/main_window.py:81
 msgid "Pardus iDevice Mounter"
 msgstr "Pardus iOS Cihaz Bağlayıcı"
 
@@ -196,60 +196,64 @@ msgstr "Pardus iOS Cihaz Bağlayıcı"
 msgid "Refresh devices"
 msgstr "Cihazları yenile"
 
-#: src/main_window.py:214 src/main_window.py:215
+#: src/main_window.py:216 src/main_window.py:217
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
-#: src/main_window.py:221
+#: src/main_window.py:223
 msgid "Trusted"
 msgstr "Güvenilir"
 
-#: src/main_window.py:221
+#: src/main_window.py:223
 msgid "Not Trusted"
 msgstr "Güvenilmiyor"
 
-#: src/main_window.py:258
+#: src/main_window.py:260
 msgid "Device"
 msgstr "Cihaz"
 
-#: src/main_window.py:269
+#: src/main_window.py:271
 msgid "Unmount"
 msgstr "Bağı Çöz"
 
-#: src/main_window.py:270
+#: src/main_window.py:272
 msgid "{} mounted successfully"
 msgstr "{} başarıyla bağlandı"
 
-#: src/main_window.py:276
+#: src/main_window.py:275
+msgid "{} is mounted. You can now access it."
+msgstr "{} bağlandı. Artık erişebilirsiniz."
+
+#: src/main_window.py:283
 msgid "Mount failed: {}"
 msgstr "Bağlama başarısız: {}"
 
-#: src/main_window.py:289
+#: src/main_window.py:296
 msgid "{} unmounted successfully"
 msgstr "{} başarıyla ayrıldı"
 
-#: src/main_window.py:292
+#: src/main_window.py:302
 msgid "Unmount failed: {}"
 msgstr "Ayırma başarısız: {}"
 
-#: src/main_window.py:319
+#: src/main_window.py:329
 msgid "Unknown Device"
 msgstr "Bilinmeyen Cihaz"
 
-#: src/main_window.py:327
+#: src/main_window.py:337
 msgid "Unknown Model"
 msgstr "Bilinmeyen Model"
 
-#: src/main_window.py:433
+#: src/main_window.py:443
 msgid "{} device(s) found"
 msgstr "{} cihaz bulundu"
 
-#: src/main_window.py:440
+#: src/main_window.py:454
 msgid "No iPhone/iPad found. Connect via USB and confirm 'Trust'"
 msgstr ""
 "iPhone/iPad bulunamadı USB ile bağlayın ve \"Güven\" seçeneğini onaylayın."
 
-#: src/main_window.py:457
+#: src/main_window.py:471
 msgid "Scan error. Install required tools."
 msgstr "Tarama hatası. Gerekli araçları yükleyin."
 

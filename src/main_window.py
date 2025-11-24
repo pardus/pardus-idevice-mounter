@@ -75,6 +75,8 @@ class MainWindow(Gtk.Window):
         if self.status_stack:
             self.status_stack.set_visible_child_name("empty")
 
+        self.success_detail_label = self.builder.get_object("success_detail_label")
+
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_title(_("Pardus iDevice Mounter"))
         self.set_default_size(600, 400)
@@ -269,6 +271,11 @@ class MainWindow(Gtk.Window):
                 row.mount_button.set_label(_("Unmount"))
                 self._show_banner_message(_("{} mounted successfully").format(device_name))
 
+                if self.success_detail_label:
+                    mounted_text = _("{} is mounted. You can now access it.")
+                    self.success_detail_label.set_text(
+                        mounted_text.format(device_name))
+
                 # Open file manager
                 self.mount_manager.open_file_manager(mount_point)
             else:
@@ -287,6 +294,9 @@ class MainWindow(Gtk.Window):
                 row.mount_point = None
                 row.mount_button.set_label(_("Mount"))
                 self._show_banner_message(_("{} unmounted successfully").format(device_name))
+
+                if self.success_detail_label:
+                    self.success_detail_label.set_text(_("Select a device to mount"))
             else:
                 error_msg = error_msg or "Unknown error"
                 self._show_banner_message(_("Unmount failed: {}").format(error_msg))
@@ -434,6 +444,9 @@ class MainWindow(Gtk.Window):
 
                 if self.status_stack:
                     self.status_stack.set_visible_child_name("success")
+
+                if self.success_detail_label:
+                    self.success_detail_label.set_text(_("Select a device to mount"))
             else:
                 logger.info("No devices found")
                 self._show_banner_message(

@@ -907,7 +907,7 @@
     <property name="website">https://github.com/pardus/pardus-idevice-mounter</property>
     <property name="authors">Emel Öztürk</property>
     <property name="translator-credits">Emel Öztürk</property>
-    <property name="logo-icon-name">xapp-user-favorites</property>
+    <property name="logo-icon-name">pardus-idevice-mounter</property>
     <property name="license-type">gpl-3-0</property>
     <child internal-child="vbox">
       <object class="GtkBox">
