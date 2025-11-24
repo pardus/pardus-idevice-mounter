@@ -1,3 +1,9 @@
+pardus-idevice-mounter (1.0.3) unstable; urgency=medium
+
+  * Change ap icon & add translations
+
+ -- Emel Öztürk <emel.ozturk@pardus.org.tr>  Mon, 24 Nov 2025 16:43:07 +0300
+
 pardus-idevice-mounter (1.0.2) unstable; urgency=medium
 
   * Remove empty mount dirs without mount point check
