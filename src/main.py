@@ -10,12 +10,12 @@ from main_window import MainWindow
 class Application(Gtk.Application):
     def __init__(self, *args, **kwargs):
         super().__init__(*args,
-                         application_id="tr.org.pardus.pardus-idevice-mounter",
+                         application_id="tr.org.pardus.idevice-mounter",
                          flags=Gio.ApplicationFlags.FLAGS_NONE,
                          **kwargs)
         self.window = None
         self.args = None
-        GLib.set_prgname("tr.org.pardus.pardus-idevice-mounter")
+        GLib.set_prgname("tr.org.pardus.idevice-mounter")
 
     def do_activate(self, *args):
         # We only allow a single window and raise any existing ones
