@@ -1,7 +1,9 @@
 [Desktop Entry]
 Name=Pardus iDevice Mounter
+Name[pt]=Conector de dispositivos iOS Pardus
 Name[tr]=Pardus iOS Cihaz Bağlayıcı
 Comment=Mount and access iOS devices on Linux
+Comment[pt]=Montar e aceder a dispositivos iOS no Linux
 Comment[tr]=iOS cihazlarını Linux'ta bağlayın ve erişin
 Icon=pardus-idevice-mounter
 Exec=pardus-idevice-mounter
@@ -10,4 +12,5 @@ Type=Application
 Categories=GTK;Utility;X-Pardus-Apps;
 StartupNotify=true
 Keywords=iOS;iPhone;iPad;mount;device;Apple;
+Keywords[pt]=iOS;iPhone;iPad;montar;dispositivo;Apple;
 Keywords[tr]=iOS;iPhone;iPad;bağla;cihaz;Apple;
