@@ -2,253 +2,255 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Hugo Carvalho <hugokarvalho@hotmail.com>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-24 16:10+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2026-02-07 18:19+0000\n"
+"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
+"Language-Team: \n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.8\n"
 
 #: ui/main_window.glade:8
 msgid "Device Details"
-msgstr ""
+msgstr "Detalhes do dispositivo"
 
 #: ui/main_window.glade:29
 msgid "Close"
-msgstr ""
+msgstr "Fechar"
 
 #: ui/main_window.glade:170
 msgid "General"
-msgstr ""
+msgstr "Geral"
 
 #: ui/main_window.glade:194
 msgid "Device Name:"
-msgstr ""
+msgstr "Nome do dispositivo:"
 
 #: ui/main_window.glade:222
 msgid "Model:"
-msgstr ""
+msgstr "Modelo:"
 
 #: ui/main_window.glade:250
 msgid "iOS Version:"
-msgstr ""
+msgstr "Versão iOS:"
 
 #: ui/main_window.glade:278
 msgid "Build Version:"
-msgstr ""
+msgstr "Versão da compilação:"
 
 #: ui/main_window.glade:349
 msgid "Hardware"
-msgstr ""
+msgstr "Equipamento"
 
 #: ui/main_window.glade:373
 msgid "Serial Number:"
-msgstr ""
+msgstr "Nome de série:"
 
 #: ui/main_window.glade:401
 msgid "UDID:"
-msgstr ""
+msgstr "UDID:"
 
 #: ui/main_window.glade:431
 msgid "Hardware Model:"
-msgstr ""
+msgstr "Modelo do equipamento:"
 
 #: ui/main_window.glade:499
 msgid "Storage"
-msgstr ""
+msgstr "Armazenamento"
 
 #: ui/main_window.glade:523
 msgid "Total Capacity:"
-msgstr ""
+msgstr "Capacidade total:"
 
 #: ui/main_window.glade:551
 msgid "Used:"
-msgstr ""
+msgstr "Utilizado:"
 
 #: ui/main_window.glade:579
 msgid "Available:"
-msgstr ""
+msgstr "Disponível:"
 
 #: ui/main_window.glade:647
 msgid "Battery"
-msgstr ""
+msgstr "Bateria"
 
 #: ui/main_window.glade:671
 msgid "Battery Level:"
-msgstr ""
+msgstr "Nível da bateria:"
 
 #: ui/main_window.glade:699
 msgid "Battery State:"
-msgstr ""
+msgstr "Estado da bateria:"
 
 #: ui/main_window.glade:773
 msgid "Network"
-msgstr ""
+msgstr "Rede"
 
 #: ui/main_window.glade:797
 msgid "WiFi Address:"
-msgstr ""
+msgstr "Endereço WiFi:"
 
 #: ui/main_window.glade:825
 msgid "Bluetooth Address:"
-msgstr ""
+msgstr "Endereço Bluetooth:"
 
 #: ui/main_window.glade:906
 msgid "Browse iPhone or iPad's files on your Linux system"
-msgstr ""
+msgstr "Navegue pelos ficheiros do iPhone ou iPad no seu sistema Linux"
 
 #: ui/main_window.glade:994
 msgid "Device Name"
-msgstr ""
+msgstr "Nome do dispositivo"
 
 #: ui/main_window.glade:1010
 msgid "xxxGB free · iOS xx.x"
-msgstr ""
+msgstr "xxxGB livre · iOS xx.x"
 
 #: ui/main_window.glade:1022
 msgid "Trusted · UDID: xxxx…"
-msgstr ""
+msgstr "Fidedigno · UDID: xxxx…"
 
 #: ui/main_window.glade:1047 src/main_window.py:235 src/main_window.py:295
 msgid "Mount"
-msgstr ""
+msgstr "Montar"
 
 #: ui/main_window.glade:1059 src/main_window.py:239
 msgid "Details"
-msgstr ""
+msgstr "Detalhes"
 
 #: ui/main_window.glade:1114
 msgid "About"
-msgstr ""
+msgstr "Acerca"
 
 #: ui/main_window.glade:1163
 msgid "✕"
-msgstr ""
+msgstr "✕"
 
 #: ui/main_window.glade:1188
 msgid "Ready."
-msgstr ""
+msgstr "Pronto."
 
 #: ui/main_window.glade:1276
 msgid "After connecting, confirm “Trust” on your device."
-msgstr ""
+msgstr "Após a ligação, confirme \"Confiar\" no seu dispositivo.."
 
 #: ui/main_window.glade:1304
 msgid "Connected Devices"
-msgstr ""
+msgstr "Dispositivos ligados"
 
 #: ui/main_window.glade:1345
 msgid "No device detected!"
-msgstr ""
+msgstr "Nenhum dispositivo detetado!"
 
 #: ui/main_window.glade:1360
 msgid "Connect your iPhone/iPad via USB and confirm “Trust”."
-msgstr ""
+msgstr "Ligue o seu iPhone/iPad via USB e confirme \"Confiar\"."
 
 #: ui/main_window.glade:1371
 msgid "Scan Devices"
-msgstr ""
+msgstr "A procurar dispositivos"
 
 #: ui/main_window.glade:1413
 msgid "Connecting…"
-msgstr ""
+msgstr "A ligar…"
 
 #: ui/main_window.glade:1443
 msgid "Waiting for “Trust” confirmation…"
-msgstr ""
+msgstr "Aguardar a confirmação de \"Confiar\"…"
 
 #: ui/main_window.glade:1469
 msgid "Devices Ready"
-msgstr ""
+msgstr "Dispositivos prontos"
 
 #: ui/main_window.glade:1484 src/main_window.py:299 src/main_window.py:450
 msgid "Select a device to mount"
-msgstr ""
+msgstr "Selecione um dispositivo a montar"
 
 #: ui/main_window.glade:1509
 msgid "Connection error"
-msgstr ""
+msgstr "Erro de ligação"
 
 #: ui/main_window.glade:1524
 msgid "Confirm “Trust” on the device • Check the USB cable"
-msgstr ""
+msgstr "Confirme \"Confiar\" no dispositivo • Verifique o cabo USB"
 
 #: ui/main_window.glade:1534
 msgid "Try Again"
-msgstr ""
+msgstr "Tente novamente"
 
 #: ui/main_window.glade:1618 src/main_window.py:81
 msgid "Pardus iDevice Mounter"
-msgstr ""
+msgstr "Conector de dispositivos iOS Pardus"
 
 #: ui/main_window.glade:1641
 msgid "Refresh devices"
-msgstr ""
+msgstr "Atualizar dispositivos"
 
 #: src/main_window.py:216 src/main_window.py:217
 msgid "Unknown"
-msgstr ""
+msgstr "Desconhecido"
 
 #: src/main_window.py:223
 msgid "Trusted"
-msgstr ""
+msgstr "Fidedigno"
 
 #: src/main_window.py:223
 msgid "Not Trusted"
-msgstr ""
+msgstr "Não fidedigno"
 
 #: src/main_window.py:260
 msgid "Device"
-msgstr ""
+msgstr "Dispositivo"
 
 #: src/main_window.py:271
 msgid "Unmount"
-msgstr ""
+msgstr "Desmontar"
 
 #: src/main_window.py:272
 msgid "{} mounted successfully"
-msgstr ""
+msgstr "{} montado com sucesso"
 
 #: src/main_window.py:275
 msgid "{} is mounted. You can now access it."
-msgstr ""
+msgstr "{} está montado. Agora pode aceder ao mesmo."
 
 #: src/main_window.py:283
 msgid "Mount failed: {}"
-msgstr ""
+msgstr "Falha ao montar:{}"
 
 #: src/main_window.py:296
 msgid "{} unmounted successfully"
-msgstr ""
+msgstr "{} desmontado com sucesso"
 
 #: src/main_window.py:302
 msgid "Unmount failed: {}"
-msgstr ""
+msgstr "Falha ao desmontar: {}"
 
 #: src/main_window.py:329
 msgid "Unknown Device"
-msgstr ""
+msgstr "Dispositivo desconhecido"
 
 #: src/main_window.py:337
 msgid "Unknown Model"
-msgstr ""
+msgstr "Modelo desconhecido"
 
 #: src/main_window.py:443
 msgid "{} device(s) found"
-msgstr ""
+msgstr "{} dispositivos(s) encontrado(os)"
 
 #: src/main_window.py:454
 msgid "No iPhone/iPad found. Connect via USB and confirm 'Trust'"
-msgstr ""
+msgstr "Nenhum iPhone/iPad encontrado. Ligue via USB e confirme \"Confiar\""
 
 #: src/main_window.py:471
 msgid "Scan error. Install required tools."
-msgstr ""
+msgstr "Erro de verificação. Instale as ferramentas necessárias."
